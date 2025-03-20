@@ -28,6 +28,8 @@ import {
   ArrowUpRight,
   ArrowDownLeft,
   Plus,
+  Wallet,
+  Smartphone,
 } from "lucide-react";
 import Bell from "./Bell";
 import DepositFunds from "./DepositFunds";
@@ -47,6 +49,8 @@ export default function Dashboard() {
   const [selectedCurrency, setSelectedCurrency] = useState("دينار جزائري");
   const [showExchangeRates, setShowExchangeRates] = useState(false);
   const [showAddCurrency, setShowAddCurrency] = useState(false);
+  const [showWallets, setShowWallets] = useState(false);
+
   const { toast } = useToast();
 
   // استرجاع بيانات العميل من قاعدة البيانات
@@ -142,16 +146,62 @@ export default function Dashboard() {
     { currency: "جنيه استرليني", icon: "🇬🇧", code: "GBP" },
   ];
 
+  // المحافظ الإلكترونية
+  const electronicWallets = [
+    {
+      name: "محفظة بريدي موب",
+      icon: "https://is1-ssl.mzstatic.com/image/thumb/Purple116/v4/03/9e/0e/039e0e76-d416-a366-9d98-5b52f2eb5a30/AppIcon-0-0-1x_U007emarketing-0-0-0-7-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/512x512bb.jpg",
+      balance: 0,
+      color: "bg-green-500",
+      linked: true,
+    },
+    {
+      name: "محفظة CIB Pay",
+      icon: "https://play-lh.googleusercontent.com/Iko0R2-9VjRxYfFdoBa8CTWH9sFzpfcgz_VIPFgC5wpQOQJcZXOHLdG3Hf_LtHFAXg=w240-h480-rw",
+      balance: 0,
+      color: "bg-blue-500",
+      linked: false,
+    },
+    {
+      name: "محفظة Paypal",
+      icon: "https://cdn.icon-icons.com/icons2/2699/PNG/512/paypal_logo_icon_170865.png",
+      balance: 0,
+      color: "bg-indigo-500",
+      linked: false,
+    },
+    {
+      name: "محفظة Wise",
+      icon: "https://cdn.icon-icons.com/icons2/3914/PNG/512/wise_logo_icon_248762.png",
+      balance: 0,
+      color: "bg-purple-500",
+      linked: false,
+    },
+    {
+      name: "محفظة Paysera",
+      icon: "https://cdn.icon-icons.com/icons2/2699/PNG/512/paysera_logo_icon_170805.png",
+      balance: 0,
+      color: "bg-yellow-500",
+      linked: false,
+    },
+    {
+      name: "محفظة RedotPay",
+      icon: "https://play-lh.googleusercontent.com/Uj9jnUQtMmKvxmRTcRLszXu7p-8X_HwLzVfqYW9lBzpO6qz6WUzN_BQoNIWZ5tR5QA=w240-h480-rw",
+      balance: 0,
+      color: "bg-red-500",
+      linked: false,
+    },
+  ];
+
   return (
-    <div className="space-y-4 md:space-y-6 pb-20 px-3 md:px-6">
+    <div className="space-y-4 md:space-y-6 pb-32 px-3 md:px-6 min-h-screen bg-gradient-to-b from-primary/5 to-primary/10 flex flex-col items-center justify-center">
       {/* رأس الصفحة */}
 
       {/* بطاقة الرصيد الرئيسية */}
-      <Card className="bg-gradient-to-r from-primary to-primary/80 text-white overflow-hidden relative w-full max-w-none mx-auto shadow-lg rounded-xl border-2 border-primary-foreground/10">
+      <Card className="bg-gradient-to-r from-primary to-primary/80 text-white overflow-hidden relative w-full max-w-3xl shadow-xl rounded-xl border border-primary-foreground/5 backdrop-blur-sm">
         <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-10 -mt-10 blur-xl"></div>
         <div className="absolute bottom-0 left-0 w-24 h-24 bg-white/10 rounded-full -ml-8 -mb-8 blur-lg"></div>
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-white/5 rounded-full blur-3xl pointer-events-none"></div>
-        <div className="absolute top-0 left-0 w-full h-full bg-[url('https://images.unsplash.com/photo-1579546929518-9e396f3cc809?w=400&q=50')] bg-no-repeat bg-cover opacity-10 mix-blend-overlay"></div>
+        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-primary/5 to-primary/10 opacity-10 mix-blend-overlay"></div>
 
         <CardHeader className="p-3 md:p-6 relative z-10">
           <div className="flex justify-center items-center">
@@ -163,7 +213,7 @@ export default function Dashboard() {
 
         <CardContent className="p-3 md:p-6 pt-0 relative z-10">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4 mb-6">
-            <div className="w-full md:w-1/2 bg-white/10 p-4 rounded-lg backdrop-blur-sm mb-2 text-center md:text-right">
+            <div className="w-full md:w-1/2 bg-white/10 p-4 rounded-lg mb-2 text-center md:text-right">
               <p className="text-3xl md:text-4xl font-bold tracking-tight">
                 {formatBalance(customer.balance)} د.ج
               </p>
@@ -179,7 +229,7 @@ export default function Dashboard() {
                   id="currency-scroll-container"
                 >
                   <div
-                    className={`bg-gradient-to-br from-yellow-500/20 to-yellow-500/5 p-2 rounded-lg backdrop-blur-sm shadow-md border border-white/10 hover:border-white/30 transition-all text-center min-w-[90px] cursor-pointer ${selectedCurrency === "دولار أمريكي" ? "scale-110 border-yellow-300 shadow-lg z-10" : ""}`}
+                    className={`bg-gradient-to-br from-yellow-500/20 to-yellow-500/5 p-2 rounded-lg shadow-md border border-white/10 hover:border-white/30 transition-all text-center min-w-[90px] cursor-pointer ${selectedCurrency === "دولار أمريكي" ? "scale-110 border-yellow-300 shadow-lg z-10" : ""}`}
                     onClick={() => setSelectedCurrency("دولار أمريكي")}
                   >
                     <div className="p-1.5 bg-yellow-500/20 rounded-full mx-auto mb-1 flex items-center justify-center">
@@ -195,7 +245,7 @@ export default function Dashboard() {
                     </p>
                   </div>
                   <div
-                    className={`bg-gradient-to-br from-blue-500/20 to-blue-500/5 p-2 rounded-lg backdrop-blur-sm shadow-md border border-white/10 hover:border-white/30 transition-all text-center min-w-[90px] cursor-pointer ${selectedCurrency === "يورو" ? "scale-110 border-blue-300 shadow-lg z-10" : ""}`}
+                    className={`bg-gradient-to-br from-blue-500/20 to-blue-500/5 p-2 rounded-lg shadow-md border border-white/10 hover:border-white/30 transition-all text-center min-w-[90px] cursor-pointer ${selectedCurrency === "يورو" ? "scale-110 border-blue-300 shadow-lg z-10" : ""}`}
                     onClick={() => setSelectedCurrency("يورو")}
                   >
                     <div className="p-1.5 bg-blue-500/30 rounded-full mx-auto mb-1 shadow-inner shadow-blue-400/20 flex items-center justify-center">
@@ -211,7 +261,7 @@ export default function Dashboard() {
                     </p>
                   </div>
                   <div
-                    className={`bg-gradient-to-br from-green-500/20 to-green-500/5 p-2 rounded-lg backdrop-blur-sm shadow-md border border-white/10 hover:border-white/30 transition-all text-center min-w-[90px] cursor-pointer ${selectedCurrency === "جنيه استرليني" ? "scale-110 border-green-300 shadow-lg z-10" : ""}`}
+                    className={`bg-gradient-to-br from-green-500/20 to-green-500/5 p-2 rounded-lg shadow-md border border-white/10 hover:border-white/30 transition-all text-center min-w-[90px] cursor-pointer ${selectedCurrency === "جنيه استرليني" ? "scale-110 border-green-300 shadow-lg z-10" : ""}`}
                     onClick={() => setSelectedCurrency("جنيه استرليني")}
                   >
                     <div className="p-1.5 bg-green-500/20 rounded-full mx-auto mb-1 flex items-center justify-center">
@@ -227,7 +277,7 @@ export default function Dashboard() {
                     </p>
                   </div>
                   <div
-                    className="bg-gradient-to-br from-purple-500/20 to-purple-500/5 p-2 rounded-lg backdrop-blur-sm shadow-md border border-white/10 hover:border-white/30 transition-all text-center min-w-[90px] cursor-pointer"
+                    className="bg-gradient-to-br from-purple-500/20 to-purple-500/5 p-2 rounded-lg shadow-md border border-white/10 hover:border-white/30 transition-all text-center min-w-[90px] cursor-pointer"
                     onClick={() => setShowAddCurrency(true)}
                   >
                     <div className="p-1.5 bg-purple-500/20 rounded-full mx-auto mb-1">
@@ -239,7 +289,7 @@ export default function Dashboard() {
                 </div>
               </div>
               <button
-                className="absolute top-1/2 right-0 transform -translate-y-1/2 bg-white/30 hover:bg-white/50 rounded-full p-1 backdrop-blur-sm z-10 text-white shadow-md border border-white/20"
+                className="absolute top-1/2 right-0 transform -translate-y-1/2 bg-white/30 hover:bg-white/50 rounded-full p-1 z-10 text-white shadow-md border border-white/20"
                 onClick={() => {
                   const container = document.getElementById(
                     "currency-scroll-container",
@@ -251,7 +301,7 @@ export default function Dashboard() {
                 <ArrowUpRight className="h-4 w-4 rotate-90" />
               </button>
               <button
-                className="absolute top-1/2 left-0 transform -translate-y-1/2 bg-white/30 hover:bg-white/50 rounded-full p-1 backdrop-blur-sm z-10 text-white shadow-md border border-white/20"
+                className="absolute top-1/2 left-0 transform -translate-y-1/2 bg-white/30 hover:bg-white/50 rounded-full p-1 z-10 text-white shadow-md border border-white/20"
                 onClick={() => {
                   const container = document.getElementById(
                     "currency-scroll-container",
@@ -265,11 +315,44 @@ export default function Dashboard() {
             </div>
           </div>
 
+          {/* المحافظ الإلكترونية داخل البطاقة الرئيسية */}
+          <div className="mt-6 mb-2">
+            <h3 className="text-sm font-bold text-white/90 mb-3 text-center">
+              المحافظ الإلكترونية
+            </h3>
+            <div className="overflow-x-auto pb-2 scrollbar-hide">
+              <div className="flex gap-2 justify-center">
+                {electronicWallets.map((wallet, index) => (
+                  <div
+                    key={index}
+                    className={`bg-gradient-to-br from-${wallet.color.replace("bg-", "")}/20 to-${wallet.color.replace("bg-", "")}/5 p-2 rounded-lg shadow-md border border-white/10 hover:border-white/30 transition-all text-center min-w-[90px] cursor-pointer ${wallet.linked ? "scale-105 border-white/30 shadow-lg z-10" : ""}`}
+                  >
+                    <div
+                      className={`p-1.5 bg-${wallet.color.replace("bg-", "")}/20 rounded-full mx-auto mb-1 flex items-center justify-center w-8 h-8 overflow-hidden`}
+                    >
+                      <img
+                        src={wallet.icon}
+                        alt={wallet.name}
+                        className="w-6 h-6 object-contain"
+                      />
+                    </div>
+                    <p className="text-xs font-medium mb-1 text-white/90">
+                      {wallet.name.split(" ")[1] || wallet.name.split(" ")[0]}
+                    </p>
+                    <p className="text-xs font-bold text-white/80">
+                      {wallet.linked ? "متصل" : "غير متصل"}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
           <div className="flex flex-col md:flex-row justify-center gap-3">
             <Button
               variant="solid"
               size="sm"
-              className="bg-white/90 text-primary hover:bg-white backdrop-blur-sm shadow-md border border-white/20 hover:border-white/50 transition-all w-full md:w-auto"
+              className="bg-white/90 text-primary hover:bg-white shadow-md border border-white/20 hover:border-white/50 transition-all w-full md:w-auto rounded-full"
               onClick={() =>
                 (window.location.href = "/bank/deposit-instructions")
               }
@@ -280,7 +363,7 @@ export default function Dashboard() {
             <Button
               variant="solid"
               size="sm"
-              className="bg-white/20 text-white hover:bg-white/30 backdrop-blur-sm shadow-md border border-white/10 hover:border-white/30 transition-all w-full md:w-auto"
+              className="bg-white/20 text-white hover:bg-white/30 shadow-md border border-white/10 hover:border-white/30 transition-all w-full md:w-auto rounded-full"
               asChild
             >
               <Link to="/bank/deposit-instructions">
@@ -291,7 +374,7 @@ export default function Dashboard() {
             <Button
               variant="solid"
               size="sm"
-              className="bg-white/20 text-white hover:bg-white/30 backdrop-blur-sm shadow-md border border-white/10 hover:border-white/30 transition-all w-full md:w-auto"
+              className="bg-white/20 text-white hover:bg-white/30 shadow-md border border-white/10 hover:border-white/30 transition-all w-full md:w-auto rounded-full"
               onClick={() => setShowExchangeRates(!showExchangeRates)}
             >
               <CreditCard className="h-4 w-4 ml-2" />
@@ -303,17 +386,20 @@ export default function Dashboard() {
 
       {/* أسعار الصرف */}
       {showExchangeRates && (
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-xl">أسعار الصرف</CardTitle>
+        <Card className="max-w-3xl mx-auto w-full shadow-lg border-primary/10 backdrop-blur-sm bg-white/90">
+          <CardHeader className="bg-gradient-to-r from-primary/5 to-primary/10 rounded-t-lg">
+            <CardTitle className="text-xl flex items-center gap-2">
+              <Globe className="h-5 w-5 text-primary" />
+              أسعار الصرف
+            </CardTitle>
             <CardDescription>أسعار الصرف المحدثة لليوم</CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="p-6">
             <div className="space-y-4">
               {exchangeRates.map((rate, index) => (
                 <div
                   key={index}
-                  className="flex justify-between items-center p-3 rounded-lg border"
+                  className="flex justify-between items-center p-4 rounded-lg border hover:border-primary/30 transition-all hover:shadow-md bg-white"
                 >
                   <div className="flex items-center gap-3">
                     <div className="p-2 bg-primary/10 rounded-full">
@@ -330,13 +416,74 @@ export default function Dashboard() {
                     </div>
                   </div>
                   <div
-                    className={`text-sm ${rate.change > 0 ? "text-green-500" : "text-red-500"}`}
+                    className={`text-sm font-medium px-2 py-1 rounded-full ${rate.change > 0 ? "bg-green-100 text-green-600" : "bg-red-100 text-red-600"}`}
                   >
                     {rate.change > 0 ? "+" : ""}
                     {rate.change.toFixed(4)}
                   </div>
                 </div>
               ))}
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
+      {/* المحافظ الإلكترونية */}
+      {showWallets && (
+        <Card className="max-w-3xl mx-auto w-full shadow-lg border-primary/10">
+          <CardHeader className="bg-gradient-to-r from-primary/5 to-primary/10 rounded-t-lg">
+            <CardTitle className="text-xl flex items-center gap-2">
+              <Wallet className="h-5 w-5 text-primary" />
+              المحافظ الإلكترونية
+            </CardTitle>
+            <CardDescription>ربط وإدارة المحافظ الإلكترونية</CardDescription>
+          </CardHeader>
+          <CardContent className="p-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {electronicWallets.map((wallet, index) => (
+                <div
+                  key={index}
+                  className="flex justify-between items-center p-4 rounded-lg border hover:border-primary/50 transition-all cursor-pointer hover:shadow-md bg-white"
+                >
+                  <div className="flex items-center gap-3">
+                    <div
+                      className={`p-2 ${wallet.color}/10 rounded-full flex items-center justify-center w-12 h-12 overflow-hidden border border-${wallet.color.replace("bg-", "")}/20`}
+                    >
+                      <img
+                        src={wallet.icon}
+                        alt={wallet.name}
+                        className="w-8 h-8 object-contain"
+                      />
+                    </div>
+                    <div>
+                      <p className="font-medium">{wallet.name}</p>
+                      <p className="text-sm text-muted-foreground">
+                        {wallet.linked ? "متصل" : "غير متصل"}
+                      </p>
+                    </div>
+                  </div>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className={
+                      wallet.linked
+                        ? "bg-green-500/10 text-green-500 hover:bg-green-500/20 border-green-500/30"
+                        : "hover:bg-primary/5 hover:text-primary"
+                    }
+                  >
+                    {wallet.linked ? "إدارة" : "ربط"}
+                  </Button>
+                </div>
+              ))}
+            </div>
+            <div className="mt-6">
+              <Button
+                className="w-full bg-primary/10 text-primary hover:bg-primary/20 border border-primary/20"
+                variant="outline"
+              >
+                <Plus className="h-4 w-4 ml-2" />
+                إضافة محفظة جديدة
+              </Button>
             </div>
           </CardContent>
         </Card>
