@@ -164,16 +164,9 @@ export default function Dashboard() {
         <CardContent className="p-3 md:p-6 pt-0 relative z-10">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4 mb-6">
             <div className="w-full md:w-1/2 bg-white/10 p-4 rounded-lg backdrop-blur-sm mb-2 text-center md:text-right">
-              <p className="text-sm text-primary-foreground/80 mb-1">
-                الرصيد الكلي
-              </p>
               <p className="text-3xl md:text-4xl font-bold tracking-tight">
                 {formatBalance(customer.balance)} د.ج
               </p>
-              <div className="flex items-center justify-center md:justify-end text-xs md:text-sm text-primary-foreground/80 bg-green-500/20 rounded-full py-1 px-3 backdrop-blur-sm mt-2 inline-block">
-                <ArrowUpRight className="h-3 w-3 md:h-4 md:w-4 mr-1" />
-                <span>+2.4% من الشهر الماضي</span>
-              </div>
             </div>
 
             <div className="w-full md:w-1/2 relative">
@@ -273,31 +266,36 @@ export default function Dashboard() {
           </div>
 
           <div className="flex flex-col md:flex-row justify-center gap-3">
-            <DepositFunds
-              accountId={
-                customer.accounts.length > 0
-                  ? customer.accounts[0].id
-                  : undefined
-              }
-              onSuccess={fetchCustomerData}
+            <Button
+              variant="solid"
+              size="sm"
               className="bg-white/90 text-primary hover:bg-white backdrop-blur-sm shadow-md border border-white/20 hover:border-white/50 transition-all w-full md:w-auto"
-            />
+              onClick={() =>
+                (window.location.href = "/bank/deposit-instructions")
+              }
+            >
+              <DollarSign className="h-4 w-4 ml-2" />
+              إيداع رصيد
+            </Button>
+            <Button
+              variant="solid"
+              size="sm"
+              className="bg-white/20 text-white hover:bg-white/30 backdrop-blur-sm shadow-md border border-white/10 hover:border-white/30 transition-all w-full md:w-auto"
+              asChild
+            >
+              <Link to="/bank/deposit-instructions">
+                <LineChart className="h-4 w-4 ml-2" />
+                تعليمات الإيداع
+              </Link>
+            </Button>
             <Button
               variant="solid"
               size="sm"
               className="bg-white/20 text-white hover:bg-white/30 backdrop-blur-sm shadow-md border border-white/10 hover:border-white/30 transition-all w-full md:w-auto"
               onClick={() => setShowExchangeRates(!showExchangeRates)}
             >
-              <LineChart className="h-4 w-4 ml-2" />
-              أسعار الصرف
-            </Button>
-            <Button
-              variant="solid"
-              size="sm"
-              className="bg-white/20 text-white hover:bg-white/30 backdrop-blur-sm shadow-md border border-white/10 hover:border-white/30 transition-all w-full md:w-auto"
-            >
               <CreditCard className="h-4 w-4 ml-2" />
-              رقم الحساب
+              أسعار الصرف
             </Button>
           </div>
         </CardContent>
@@ -343,59 +341,6 @@ export default function Dashboard() {
           </CardContent>
         </Card>
       )}
-
-      {/* الحسابات المتاحة */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-xl">الحسابات المتاحة</CardTitle>
-          <CardDescription>
-            اختر العملة لفتح حساب جديد أو الإيداع
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {availableAccounts.map((account, index) => (
-              <div
-                key={index}
-                className={`flex items-center gap-4 p-4 rounded-lg border cursor-pointer transition-all hover:border-primary hover:bg-primary/5 ${selectedCurrency === account.currency ? "border-primary bg-primary/5" : ""}`}
-                onClick={() => setSelectedCurrency(account.currency)}
-              >
-                <div className="text-2xl">{account.icon}</div>
-                <div className="flex-1">
-                  <p className="font-medium">{account.currency}</p>
-                  <p className="text-sm text-muted-foreground">
-                    {account.code}
-                  </p>
-                </div>
-                <div className="flex gap-2">
-                  <Button variant="outline" size="sm" className="rounded-full">
-                    <ArrowUpRight className="h-4 w-4" />
-                  </Button>
-                  <Button variant="outline" size="sm" className="rounded-full">
-                    <ArrowDownLeft className="h-4 w-4" />
-                  </Button>
-                </div>
-              </div>
-            ))}
-          </div>
-        </CardContent>
-        <CardFooter>
-          <Button
-            className="w-full"
-            onClick={() => setIsOpenAccountDialogOpen(true)}
-          >
-            <Plus className="h-4 w-4 ml-2" />
-            فتح حساب جديد
-          </Button>
-        </CardFooter>
-      </Card>
-
-      {/* تعليمات الإيداع */}
-      <div className="flex justify-end">
-        <Button variant="outline" asChild>
-          <Link to="/bank/deposit-instructions">عرض تعليمات الإيداع</Link>
-        </Button>
-      </div>
 
       {/* شريط التنقل السفلي */}
       <div className="fixed bottom-0 left-0 right-0 bg-background border-t p-2 flex justify-around items-center md:hidden z-10">

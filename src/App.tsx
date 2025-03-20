@@ -13,6 +13,7 @@ import Transactions from "./components/banking/Transactions";
 import Savings from "./components/banking/Savings";
 import CurrencyAccounts from "./components/banking/CurrencyAccounts";
 import VisaCard from "./components/banking/VisaCard";
+import Settings from "./components/banking/Settings";
 import CustomerManagement from "./components/banking/CustomerManagement";
 import BankCurrencySettings from "./components/banking/BankCurrencySettings";
 import BankAccounts from "./components/banking/BankAccounts";
@@ -46,7 +47,7 @@ function App() {
             <Route path="transactions" element={<Transactions />} />
             <Route path="savings" element={<Savings />} />
             <Route path="visa" element={<VisaCard />} />
-            <Route path="settings" element={<Dashboard />} />
+            <Route path="settings" element={<Settings />} />
             <Route path="help" element={<Dashboard />} />
             <Route
               path="deposit-instructions"
