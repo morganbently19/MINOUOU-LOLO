@@ -142,79 +142,70 @@ export default function Dashboard() {
   ];
 
   return (
-    <div className="space-y-6 pb-20">
+    <div className="space-y-4 md:space-y-6 pb-20 px-3 md:px-6">
       {/* رأس الصفحة */}
-      <div className="flex justify-between items-center">
-        <h1 className="text-3xl font-bold">مرحباً، {customer.name}</h1>
-        <div className="flex items-center gap-2">
-          <Button variant="outline" size="icon" className="rounded-full">
-            <Bell className="h-5 w-5" />
-          </Button>
-          <Button variant="outline" size="icon" className="rounded-full">
-            <Settings className="h-5 w-5" />
-          </Button>
-        </div>
-      </div>
 
       {/* بطاقة الرصيد الرئيسية */}
-      <Card className="bg-gradient-to-r from-primary to-primary/80 text-white overflow-hidden relative">
+      <Card className="bg-gradient-to-r from-primary to-primary/80 text-white overflow-hidden relative w-full max-w-none mx-auto shadow-lg rounded-xl">
         <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-10 -mt-10 blur-xl"></div>
         <div className="absolute bottom-0 left-0 w-24 h-24 bg-white/10 rounded-full -ml-8 -mb-8 blur-lg"></div>
 
-        <CardHeader>
-          <CardTitle className="text-2xl">الرصيد الإجمالي</CardTitle>
-          <CardDescription className="text-primary-foreground/90">
+        <CardHeader className="p-3 md:p-6">
+          <CardTitle className="text-xl md:text-2xl font-bold">
+            الرصيد الإجمالي
+          </CardTitle>
+          <CardDescription className="text-primary-foreground/90 text-xs md:text-sm">
             نظرة عامة على حساباتك المصرفية
           </CardDescription>
         </CardHeader>
 
-        <CardContent>
-          <div className="mb-6">
-            <p className="text-4xl font-bold mb-1">
+        <CardContent className="p-3 md:p-6 pt-0">
+          <div className="mb-3 md:mb-6 text-right">
+            <p className="text-3xl md:text-4xl font-bold mb-1 tracking-tight">
               {formatBalance(customer.balance)} د.ج
             </p>
-            <div className="flex items-center text-sm text-primary-foreground/80">
-              <ArrowUpRight className="h-4 w-4 mr-1" />
+            <div className="flex items-center justify-end text-xs md:text-sm text-primary-foreground/80">
+              <ArrowUpRight className="h-3 w-3 md:h-4 md:w-4 mr-1" />
               <span>+2.4% من الشهر الماضي</span>
             </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <div className="bg-white/10 p-4 rounded-lg backdrop-blur-sm">
-              <div className="flex items-center gap-2 mb-2">
-                <DollarSign className="h-5 w-5" />
-                <h3 className="font-medium">الرصيد بالدولار</h3>
+          <div className="grid grid-cols-3 gap-2 md:gap-4">
+            <div className="bg-white/15 p-2 md:p-4 rounded-lg backdrop-blur-sm shadow-sm">
+              <div className="flex items-center justify-end gap-1 md:gap-2 mb-1 md:mb-2">
+                <DollarSign className="h-3 w-3 md:h-5 md:w-5" />
+                <h3 className="font-medium text-xs md:text-base">الدولار</h3>
               </div>
-              <p className="text-2xl font-bold">
-                {formatBalance(customer.balance / 135.5)} $
+              <p className="text-base md:text-2xl font-bold text-right">
+                {formatBalance((customer.balance / 135.5).toFixed(2))} $
               </p>
             </div>
-            <div className="bg-white/10 p-4 rounded-lg backdrop-blur-sm">
-              <div className="flex items-center gap-2 mb-2">
-                <TrendingUp className="h-5 w-5" />
-                <h3 className="font-medium">الرصيد باليورو</h3>
+            <div className="bg-white/15 p-2 md:p-4 rounded-lg backdrop-blur-sm shadow-sm">
+              <div className="flex items-center justify-end gap-1 md:gap-2 mb-1 md:mb-2">
+                <TrendingUp className="h-3 w-3 md:h-5 md:w-5" />
+                <h3 className="font-medium text-xs md:text-base">اليورو</h3>
               </div>
-              <p className="text-2xl font-bold">
-                {formatBalance(customer.balance / 148.2)} €
+              <p className="text-base md:text-2xl font-bold text-right">
+                {formatBalance((customer.balance / 148.2).toFixed(2))} €
               </p>
             </div>
-            <div className="bg-white/10 p-4 rounded-lg backdrop-blur-sm">
-              <div className="flex items-center gap-2 mb-2">
-                <Globe className="h-5 w-5" />
-                <h3 className="font-medium">الحسابات النشطة</h3>
+            <div className="bg-white/15 p-2 md:p-4 rounded-lg backdrop-blur-sm shadow-sm">
+              <div className="flex items-center justify-end gap-1 md:gap-2 mb-1 md:mb-2">
+                <Globe className="h-3 w-3 md:h-5 md:w-5" />
+                <h3 className="font-medium text-xs md:text-base">الحسابات</h3>
               </div>
-              <p className="text-2xl font-bold">
+              <p className="text-base md:text-2xl font-bold text-right">
                 {customer.accounts.length || 0}
               </p>
             </div>
           </div>
         </CardContent>
 
-        <CardFooter className="pt-0 flex flex-wrap gap-2">
+        <CardFooter className="p-3 md:p-6 pt-0 flex flex-wrap justify-end gap-2">
           <Button
-            variant="outline"
+            variant="solid"
             size="sm"
-            className="text-white border-white/30 hover:bg-white/20 hover:text-white"
+            className="bg-white text-primary hover:bg-white/90"
             onClick={() => setShowExchangeRates(!showExchangeRates)}
           >
             <LineChart className="h-4 w-4 ml-2" />
@@ -226,17 +217,8 @@ export default function Dashboard() {
               customer.accounts.length > 0 ? customer.accounts[0].id : undefined
             }
             onSuccess={fetchCustomerData}
+            className="bg-white text-primary hover:bg-white/90"
           />
-
-          <Button
-            variant="outline"
-            size="sm"
-            className="text-white border-white/30 hover:bg-white/20 hover:text-white"
-            onClick={() => setIsOpenAccountDialogOpen(true)}
-          >
-            <Plus className="h-4 w-4 ml-2" />
-            فتح حساب جديد
-          </Button>
         </CardFooter>
       </Card>
 

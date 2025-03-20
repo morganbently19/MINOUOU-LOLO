@@ -26,88 +26,7 @@ import {
 import { format } from "date-fns";
 import { ar } from "date-fns/locale";
 
-const transactions = [
-  {
-    id: 1,
-    title: "ماركت الرياض",
-    date: "20 يونيو 2023",
-    amount: "-350 د.ج",
-    category: "تسوق",
-    status: "مكتملة",
-  },
-  {
-    id: 2,
-    title: "تحويل إلى محمد",
-    date: "18 يونيو 2023",
-    amount: "-1,200 د.ج",
-    category: "تحويل",
-    status: "مكتملة",
-  },
-  {
-    id: 3,
-    title: "راتب شهري",
-    date: "15 يونيو 2023",
-    amount: "+15,000 د.ج",
-    category: "دخل",
-    status: "مكتملة",
-  },
-  {
-    id: 4,
-    title: "مطعم السلام",
-    date: "14 يونيو 2023",
-    amount: "-220 د.ج",
-    category: "مطاعم",
-    status: "مكتملة",
-  },
-  {
-    id: 5,
-    title: "فاتورة الكهرباء",
-    date: "10 يونيو 2023",
-    amount: "-450 د.ج",
-    category: "فواتير",
-    status: "مكتملة",
-  },
-  {
-    id: 6,
-    title: "سوبرماركت",
-    date: "08 يونيو 2023",
-    amount: "-180 د.ج",
-    category: "تسوق",
-    status: "مكتملة",
-  },
-  {
-    id: 7,
-    title: "محطة وقود",
-    date: "05 يونيو 2023",
-    amount: "-120 د.ج",
-    category: "وقود",
-    status: "مكتملة",
-  },
-  {
-    id: 8,
-    title: "اشتراك نتفلكس",
-    date: "03 يونيو 2023",
-    amount: "-45 د.ج",
-    category: "ترفيه",
-    status: "مكتملة",
-  },
-  {
-    id: 9,
-    title: "صيدلية",
-    date: "01 يونيو 2023",
-    amount: "-95 د.ج",
-    category: "صحة",
-    status: "مكتملة",
-  },
-  {
-    id: 10,
-    title: "تحويل من خالد",
-    date: "28 مايو 2023",
-    amount: "+500 د.ج",
-    category: "تحويل",
-    status: "مكتملة",
-  },
-];
+const transactions = [];
 
 export default function Transactions() {
   const [date, setDate] = useState<Date>();
@@ -193,54 +112,66 @@ export default function Transactions() {
             </div>
 
             <div className="divide-y">
-              {transactions.map((transaction) => (
-                <div
-                  key={transaction.id}
-                  className="flex flex-col md:grid md:grid-cols-5 p-4 items-start md:items-center border-b md:border-b-0"
-                >
-                  <div className="flex justify-between w-full md:block">
-                    <div className="font-medium">{transaction.title}</div>
+              {transactions.length > 0 ? (
+                transactions.map((transaction) => (
+                  <div
+                    key={transaction.id}
+                    className="flex flex-col md:grid md:grid-cols-5 p-4 items-start md:items-center border-b md:border-b-0"
+                  >
+                    <div className="flex justify-between w-full md:block">
+                      <div className="font-medium">{transaction.title}</div>
+                      <div
+                        className={`md:hidden font-medium ${transaction.amount.startsWith("+") ? "text-success" : "text-destructive"}`}
+                      >
+                        {transaction.amount}
+                      </div>
+                    </div>
+                    <div className="text-muted-foreground text-sm mt-1 md:mt-0">
+                      {transaction.date}
+                    </div>
+                    <div className="flex gap-2 mt-2 md:mt-0">
+                      <span className="inline-flex items-center rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary">
+                        {transaction.category}
+                      </span>
+                      <span className="inline-flex items-center rounded-full bg-success/10 px-2.5 py-0.5 text-xs font-medium text-success">
+                        {transaction.status}
+                      </span>
+                    </div>
+                    <div className="hidden md:block"></div>
                     <div
-                      className={`md:hidden font-medium ${transaction.amount.startsWith("+") ? "text-success" : "text-destructive"}`}
+                      className={`hidden md:block text-left font-medium ${transaction.amount.startsWith("+") ? "text-success" : "text-destructive"}`}
                     >
                       {transaction.amount}
                     </div>
                   </div>
-                  <div className="text-muted-foreground text-sm mt-1 md:mt-0">
-                    {transaction.date}
-                  </div>
-                  <div className="flex gap-2 mt-2 md:mt-0">
-                    <span className="inline-flex items-center rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary">
-                      {transaction.category}
-                    </span>
-                    <span className="inline-flex items-center rounded-full bg-success/10 px-2.5 py-0.5 text-xs font-medium text-success">
-                      {transaction.status}
-                    </span>
-                  </div>
-                  <div className="hidden md:block"></div>
-                  <div
-                    className={`hidden md:block text-left font-medium ${transaction.amount.startsWith("+") ? "text-success" : "text-destructive"}`}
-                  >
-                    {transaction.amount}
-                  </div>
+                ))
+              ) : (
+                <div className="p-8 text-center text-muted-foreground">
+                  لا توجد معاملات مالية حالياً
                 </div>
-              ))}
+              )}
             </div>
           </div>
 
-          <div className="flex items-center justify-between mt-4">
-            <div className="text-sm text-muted-foreground">
-              عرض 1-10 من 24 معاملة
+          {transactions.length > 0 && (
+            <div className="flex items-center justify-between mt-4">
+              <div className="text-sm text-muted-foreground">
+                عرض 1-{transactions.length} من {transactions.length} معاملة
+              </div>
+              <div className="flex items-center space-x-2 space-x-reverse">
+                <Button variant="outline" size="sm" disabled>
+                  السابق
+                </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  disabled={transactions.length <= 10}
+                >
+                  التالي
+                </Button>
+              </div>
             </div>
-            <div className="flex items-center space-x-2 space-x-reverse">
-              <Button variant="outline" size="sm" disabled>
-                السابق
-              </Button>
-              <Button variant="outline" size="sm">
-                التالي
-              </Button>
-            </div>
-          </div>
+          )}
         </CardContent>
       </Card>
     </div>

@@ -178,44 +178,9 @@ export default function Transfers() {
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                {[
-                  {
-                    id: 1,
-                    name: "محمد أحمد",
-                    account: "SA44 8000 0000 6080 1016 7519",
-                    bank: "البنك الأهلي",
-                  },
-                  {
-                    id: 2,
-                    name: "سارة خالد",
-                    account: "SA13 8000 0000 6080 1016 7519",
-                    bank: "بنك الرياض",
-                  },
-                  {
-                    id: 3,
-                    name: "عبدالله محمد",
-                    account: "SA55 8000 0000 6080 1016 7519",
-                    bank: "مصرف الراجحي",
-                  },
-                ].map((beneficiary) => (
-                  <div
-                    key={beneficiary.id}
-                    className="flex items-center justify-between p-4 border rounded-lg"
-                  >
-                    <div>
-                      <h3 className="font-medium">{beneficiary.name}</h3>
-                      <p className="text-sm text-muted-foreground">
-                        {beneficiary.bank}
-                      </p>
-                      <p className="text-xs text-muted-foreground">
-                        {beneficiary.account}
-                      </p>
-                    </div>
-                    <Button variant="outline" size="sm">
-                      تحويل سريع
-                    </Button>
-                  </div>
-                ))}
+                <p className="text-center text-muted-foreground">
+                  لا يوجد مستفيدون محفوظون حالياً
+                </p>
               </div>
             </CardContent>
           </Card>
