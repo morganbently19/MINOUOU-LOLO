@@ -49,16 +49,7 @@ export function DebugPanel() {
   };
 
   if (!isOpen) {
-    return (
-      <Button
-        className="fixed bottom-4 left-4 z-50 opacity-70 hover:opacity-100"
-        variant="outline"
-        size="sm"
-        onClick={() => setIsOpen(true)}
-      >
-        فحص الاتصال
-      </Button>
-    );
+    return null;
   }
 
   return (

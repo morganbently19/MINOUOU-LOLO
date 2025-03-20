@@ -126,7 +126,8 @@ export default function Register() {
             security_level: "medium",
             transaction_limit: 50000,
             two_factor_enabled: false,
-            status: "نشط",
+            status: "قيد التفعيل", // Changed from "نشط" to "قيد التفعيل"
+            verification_status: "pending", // Added verification status
           },
         ])
         .select();
@@ -154,7 +155,7 @@ export default function Register() {
             type: formData.accountType,
             currency: formData.currency,
             balance: Number(formData.initialDeposit),
-            status: "نشط",
+            status: "قيد التفعيل", // Changed from "نشط" to "قيد التفعيل"
           },
         ])
         .select();
@@ -180,7 +181,7 @@ export default function Register() {
             type: "إيداع",
             amount: Number(formData.initialDeposit),
             description: "إيداع أولي عند فتح الحساب",
-            status: "مكتملة",
+            status: "معلقة", // Changed from "مكتملة" to "معلقة"
           },
         ]);
 
@@ -195,8 +196,10 @@ export default function Register() {
         JSON.stringify(customerData[0]),
       );
 
-      // Redirect to dashboard
-      navigate("/bank");
+      // Redirect to identity verification page
+      navigate("/verify-identity", {
+        state: { customerData: customerData[0] },
+      });
     } catch (err) {
       console.error("Registration error:", err);
       setError(err.message || "حدث خطأ أثناء التسجيل. يرجى المحاولة مرة أخرى.");
@@ -368,90 +371,6 @@ export default function Register() {
                         <Eye className="h-4 w-4" />
                       )}
                     </Button>
-                  </div>
-                </div>
-              </div>
-
-              <div className="border-t pt-4 mt-4">
-                <h3 className="font-medium mb-2">معلومات الحساب المصرفي</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="accountType">نوع الحساب</Label>
-                    <Select
-                      value={formData.accountType}
-                      onValueChange={(value) =>
-                        handleSelectChange("accountType", value)
-                      }
-                    >
-                      <SelectTrigger id="accountType">
-                        <SelectValue placeholder="اختر نوع الحساب" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="جاري">
-                          <div className="flex items-center gap-2">
-                            <CreditCard className="h-4 w-4" />
-                            <span>حساب جاري</span>
-                          </div>
-                        </SelectItem>
-                        <SelectItem value="توفير">
-                          <div className="flex items-center gap-2">
-                            <CreditCard className="h-4 w-4" />
-                            <span>حساب توفير</span>
-                          </div>
-                        </SelectItem>
-                        <SelectItem value="استثمار">
-                          <div className="flex items-center gap-2">
-                            <CreditCard className="h-4 w-4" />
-                            <span>حساب استثمار</span>
-                          </div>
-                        </SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="currency">العملة</Label>
-                    <Select
-                      value={formData.currency}
-                      onValueChange={(value) =>
-                        handleSelectChange("currency", value)
-                      }
-                    >
-                      <SelectTrigger id="currency">
-                        <SelectValue placeholder="اختر العملة" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="دينار جزائري">
-                          <div className="flex items-center gap-2">
-                            <CreditCard className="h-4 w-4" />
-                            <span>دينار جزائري (د.ج)</span>
-                          </div>
-                        </SelectItem>
-                        <SelectItem value="دولار أمريكي">
-                          <div className="flex items-center gap-2">
-                            <DollarSign className="h-4 w-4" />
-                            <span>دولار أمريكي ($)</span>
-                          </div>
-                        </SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-
-                  <div className="space-y-2 md:col-span-2">
-                    <Label htmlFor="initialDeposit">الإيداع الأولي</Label>
-                    <Input
-                      id="initialDeposit"
-                      name="initialDeposit"
-                      type="number"
-                      placeholder="أدخل مبلغ الإيداع الأولي"
-                      value={formData.initialDeposit}
-                      onChange={handleChange}
-                      required
-                    />
-                    <p className="text-xs text-muted-foreground">
-                      الحد الأدنى للإيداع: 1,000 د.ج للحساب الجاري، 5,000 د.ج
-                      لحساب التوفير، 10,000 د.ج لحساب الاستثمار
-                    </p>
                   </div>
                 </div>
               </div>

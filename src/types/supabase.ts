@@ -102,6 +102,7 @@ export type Database = {
           transaction_limit: number | null
           two_factor_enabled: boolean | null
           username: string
+          verification_status: string | null
         }
         Insert: {
           address: string
@@ -118,6 +119,7 @@ export type Database = {
           transaction_limit?: number | null
           two_factor_enabled?: boolean | null
           username: string
+          verification_status?: string | null
         }
         Update: {
           address?: string
@@ -134,6 +136,7 @@ export type Database = {
           transaction_limit?: number | null
           two_factor_enabled?: boolean | null
           username?: string
+          verification_status?: string | null
         }
         Relationships: []
       }
@@ -222,6 +225,50 @@ export type Database = {
             columns: ["recipient_account_id"]
             isOneToOne: false
             referencedRelation: "accounts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      verification_documents: {
+        Row: {
+          admin_notes: string | null
+          back_image_url: string
+          created_at: string | null
+          customer_id: number
+          document_type: string
+          front_image_url: string
+          id: number
+          status: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          admin_notes?: string | null
+          back_image_url: string
+          created_at?: string | null
+          customer_id: number
+          document_type: string
+          front_image_url: string
+          id?: number
+          status?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          admin_notes?: string | null
+          back_image_url?: string
+          created_at?: string | null
+          customer_id?: number
+          document_type?: string
+          front_image_url?: string
+          id?: number
+          status?: string | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "verification_documents_customer_id_fkey"
+            columns: ["customer_id"]
+            isOneToOne: false
+            referencedRelation: "customers"
             referencedColumns: ["id"]
           },
         ]

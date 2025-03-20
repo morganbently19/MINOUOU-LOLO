@@ -18,6 +18,8 @@ import BankCurrencySettings from "./components/banking/BankCurrencySettings";
 import BankAccounts from "./components/banking/BankAccounts";
 import CustomerDepositInstructions from "./components/banking/CustomerDepositInstructions";
 import ConnectionTest from "./components/banking/ConnectionTest";
+import VerifyIdentity from "./components/banking/VerifyIdentity";
+import VerificationSuccess from "./components/banking/VerificationSuccess";
 import { DebugPanel } from "./components/ui/debug-panel";
 import routes from "tempo-routes";
 
@@ -28,6 +30,11 @@ function App() {
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/verify-identity" element={<VerifyIdentity />} />
+          <Route
+            path="/verification-success"
+            element={<VerificationSuccess />}
+          />
           <Route path="/connection-test" element={<ConnectionTest />} />
 
           {/* مسارات العميل */}

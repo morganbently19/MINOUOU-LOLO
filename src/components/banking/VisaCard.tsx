@@ -15,63 +15,72 @@ import {
   Eye,
   EyeOff,
   ChevronDown,
+  Calendar,
 } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { supabase } from "../../lib/supabase";
 
+// سيتم استبدال هذه البيانات بالبيانات الفعلية من قاعدة البيانات
 const visaCards = [
   {
     id: 1,
     type: "فيزا بلاتينيوم",
-    number: "4539 7612 3456 7890",
-    expiryDate: "09/26",
+    number: "**** **** **** ****",
+    expiryDate: "05/2029",
     cvv: "123",
-    cardHolder: "أحمد محمد",
-    balance: "15,000 د.ج",
-    limit: "50,000 د.ج",
+    cardHolder: "اسم العميل",
+    balance: "0 د.ج",
+    limit: "0 د.ج",
     status: "نشطة",
     color: "bg-gradient-to-r from-primary to-primary/60",
   },
-  {
-    id: 2,
-    type: "فيزا كلاسيك",
-    number: "4024 0071 5678 9012",
-    expiryDate: "03/25",
-    cvv: "456",
-    cardHolder: "أحمد محمد",
-    balance: "5,200 د.ج",
-    limit: "20,000 د.ج",
-    status: "نشطة",
-    color: "bg-gradient-to-r from-secondary to-secondary/70",
-  },
 ];
 
-const recentTransactions = [
-  {
-    id: 1,
-    merchant: "أمازون",
-    date: "15 يونيو 2023",
-    amount: "-1,250 د.ج",
-    status: "مكتملة",
-  },
-  {
-    id: 2,
-    merchant: "كارفور",
-    date: "12 يونيو 2023",
-    amount: "-450 د.ج",
-    status: "مكتملة",
-  },
-  {
-    id: 3,
-    merchant: "نون",
-    date: "10 يونيو 2023",
-    amount: "-780 د.ج",
-    status: "مكتملة",
-  },
-];
+// سيتم استبدال هذه البيانات بالبيانات الفعلية من قاعدة البيانات
+const recentTransactions = [];
 
 export default function VisaCard() {
   const [showCardDetails, setShowCardDetails] = useState(false);
   const [selectedCard, setSelectedCard] = useState(visaCards[0]);
+  const [isActivated, setIsActivated] = useState(false);
+
+  const activateCard = async () => {
+    setIsActivated(true);
+    // جلب بيانات العميل من قاعدة البيانات
+    try {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      if (user) {
+        const { data: customerData } = await supabase
+          .from("customers")
+          .select("first_name, last_name")
+          .eq("user_id", user.id)
+          .single();
+
+        if (customerData) {
+          const fullName = `${customerData.first_name} ${customerData.last_name}`;
+          setSelectedCard({
+            ...selectedCard,
+            number: "4929 1234 5678 9012",
+            expiryDate: "05/2029",
+            cvv: "123",
+            cardHolder: fullName,
+          });
+        }
+      }
+    } catch (error) {
+      console.error("Error fetching customer data:", error);
+      // في حالة الخطأ، استخدم الاسم الافتراضي
+      setSelectedCard({
+        ...selectedCard,
+        number: "4929 1234 5678 9012",
+        expiryDate: "05/2029",
+        cvv: "123",
+        cardHolder: "اسم العميل",
+      });
+    }
+  };
 
   return (
     <div className="space-y-6">
@@ -156,48 +165,25 @@ export default function VisaCard() {
               </Button>
             </div>
           )}
-        </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <Card>
-            <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium">
-                الرصيد المتاح
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">{selectedCard.balance}</div>
-              <p className="text-xs text-muted-foreground">
-                من أصل {selectedCard.limit}
-              </p>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium">
-                حالة البطاقة
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="flex items-center">
-                <div className="h-3 w-3 rounded-full bg-success ml-2"></div>
-                <span>{selectedCard.status}</span>
+          <div className="mt-4 text-center">
+            {!isActivated ? (
+              <Button
+                className="bg-primary hover:bg-primary/90 text-white"
+                onClick={activateCard}
+              >
+                <Lock className="h-4 w-4 ml-2" />
+                تفعيل البطاقة
+              </Button>
+            ) : (
+              <div className="p-2 bg-success/10 rounded-md border border-success">
+                <p className="text-success text-sm flex items-center justify-center">
+                  <Shield className="h-4 w-4 ml-2" />
+                  تم تفعيل البطاقة بنجاح
+                </p>
               </div>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium">نوع البطاقة</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="flex items-center">
-                <CreditCard className="h-5 w-5 ml-2 text-primary" />
-                <span>{selectedCard.type}</span>
-              </div>
-            </CardContent>
-          </Card>
+            )}
+          </div>
         </div>
 
         <Tabs defaultValue="transactions">
@@ -222,27 +208,39 @@ export default function VisaCard() {
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  {recentTransactions.map((transaction) => (
-                    <div
-                      key={transaction.id}
-                      className="flex items-center justify-between p-4 border rounded-lg"
-                    >
-                      <div>
-                        <h3 className="font-medium">{transaction.merchant}</h3>
-                        <p className="text-sm text-muted-foreground">
-                          {transaction.date}
-                        </p>
+                  {recentTransactions.length > 0 ? (
+                    recentTransactions.map((transaction) => (
+                      <div
+                        key={transaction.id}
+                        className="flex items-center justify-between p-4 border rounded-lg"
+                      >
+                        <div>
+                          <h3 className="font-medium">
+                            {transaction.merchant}
+                          </h3>
+                          <p className="text-sm text-muted-foreground">
+                            {transaction.date}
+                          </p>
+                        </div>
+                        <div className="text-right">
+                          <p className="font-bold text-destructive">
+                            {transaction.amount}
+                          </p>
+                          <p className="text-xs text-muted-foreground">
+                            {transaction.status}
+                          </p>
+                        </div>
                       </div>
-                      <div className="text-right">
-                        <p className="font-bold text-destructive">
-                          {transaction.amount}
-                        </p>
-                        <p className="text-xs text-muted-foreground">
-                          {transaction.status}
-                        </p>
-                      </div>
+                    ))
+                  ) : (
+                    <div className="p-8 text-center border rounded-lg bg-muted/20">
+                      <Calendar className="h-10 w-10 text-muted-foreground mx-auto mb-2" />
+                      <h3 className="font-medium">لا توجد معاملات</h3>
+                      <p className="text-sm text-muted-foreground mb-4">
+                        لم يتم العثور على أي معاملات لهذه البطاقة
+                      </p>
                     </div>
-                  ))}
+                  )}
                 </div>
               </CardContent>
               <CardFooter>
