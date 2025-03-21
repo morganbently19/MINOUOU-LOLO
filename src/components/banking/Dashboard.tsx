@@ -51,6 +51,8 @@ export default function Dashboard() {
   const [showExchangeRates, setShowExchangeRates] = useState(false);
   const [showAddCurrency, setShowAddCurrency] = useState(false);
   const [showWallets, setShowWallets] = useState(false);
+  const [showAccountNumber, setShowAccountNumber] = useState(false);
+  const [accountActivated, setAccountActivated] = useState(false);
 
   const { toast } = useToast();
 
@@ -151,42 +153,42 @@ export default function Dashboard() {
   const electronicWallets = [
     {
       name: "محفظة بريدي موب",
-      icon: "https://is1-ssl.mzstatic.com/image/thumb/Purple116/v4/03/9e/0e/039e0e76-d416-a366-9d98-5b52f2eb5a30/AppIcon-0-0-1x_U007emarketing-0-0-0-7-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/512x512bb.jpg",
+      icon: "https://images.unsplash.com/photo-1614680376573-df3480f0c6ff?w=100&q=80",
       balance: 0,
       color: "bg-green-500",
       linked: true,
     },
     {
       name: "محفظة CIB Pay",
-      icon: "https://play-lh.googleusercontent.com/Iko0R2-9VjRxYfFdoBa8CTWH9sFzpfcgz_VIPFgC5wpQOQJcZXOHLdG3Hf_LtHFAXg=w240-h480-rw",
+      icon: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=100&q=80",
       balance: 0,
       color: "bg-blue-500",
       linked: false,
     },
     {
       name: "محفظة Paypal",
-      icon: "https://cdn.icon-icons.com/icons2/2699/PNG/512/paypal_logo_icon_170865.png",
+      icon: "https://images.unsplash.com/photo-1567427017947-545c5f8d16ad?w=100&q=80",
       balance: 0,
       color: "bg-indigo-500",
       linked: false,
     },
     {
       name: "محفظة Wise",
-      icon: "https://cdn.icon-icons.com/icons2/3914/PNG/512/wise_logo_icon_248762.png",
+      icon: "https://images.unsplash.com/photo-1611174743420-3d7df880ce32?w=100&q=80",
       balance: 0,
       color: "bg-purple-500",
       linked: false,
     },
     {
       name: "محفظة Paysera",
-      icon: "https://cdn.icon-icons.com/icons2/2699/PNG/512/paysera_logo_icon_170805.png",
+      icon: "https://images.unsplash.com/photo-1601597111158-2fceff292cdc?w=100&q=80",
       balance: 0,
       color: "bg-yellow-500",
       linked: false,
     },
     {
       name: "محفظة RedotPay",
-      icon: "https://play-lh.googleusercontent.com/Uj9jnUQtMmKvxmRTcRLszXu7p-8X_HwLzVfqYW9lBzpO6qz6WUzN_BQoNIWZ5tR5QA=w240-h480-rw",
+      icon: "https://images.unsplash.com/photo-1607344645866-009c320c5ab8?w=100&q=80",
       balance: 0,
       color: "bg-red-500",
       linked: false,
@@ -316,40 +318,8 @@ export default function Dashboard() {
             </div>
           </div>
 
-          {/* المحافظ الإلكترونية داخل البطاقة الرئيسية */}
-          <div className="mt-6 mb-4">
-            <h3 className="text-sm font-bold text-white/90 mb-3 text-center">
-              المحافظ الإلكترونية
-            </h3>
-            <div className="overflow-x-auto pb-2 scrollbar-hide">
-              <div className="flex gap-2 justify-center">
-                {electronicWallets.map((wallet, index) => (
-                  <div
-                    key={index}
-                    className={`bg-gradient-to-br from-${wallet.color.replace("bg-", "")}/20 to-${wallet.color.replace("bg-", "")}/5 p-2 rounded-lg shadow-md border border-white/10 hover:border-white/30 transition-all text-center min-w-[90px] cursor-pointer ${wallet.linked ? "scale-105 border-white/30 shadow-lg z-10" : ""}`}
-                  >
-                    <div
-                      className={`p-1.5 bg-${wallet.color.replace("bg-", "")}/20 rounded-full mx-auto mb-1 flex items-center justify-center w-8 h-8 overflow-hidden`}
-                    >
-                      <img
-                        src={wallet.icon}
-                        alt={wallet.name}
-                        className="w-6 h-6 object-contain"
-                      />
-                    </div>
-                    <p className="text-xs font-medium mb-1 text-white/90">
-                      {wallet.name.split(" ")[1] || wallet.name.split(" ")[0]}
-                    </p>
-                    <p className="text-xs font-bold text-white/80">
-                      {wallet.linked ? "متصل" : "غير متصل"}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          <div className="border-t border-white/10 pt-4 mt-2">
+          {/* أزرار الإجراءات */}
+          <div className="mt-4 mb-4">
             <div className="flex flex-col md:flex-row justify-center gap-3">
               <Button
                 variant="solid"
@@ -382,6 +352,69 @@ export default function Dashboard() {
                 <CreditCard className="h-4 w-4 ml-2" />
                 أسعار الصرف
               </Button>
+            </div>
+          </div>
+
+          {/* زر تفعيل الحساب */}
+          <div className="mt-4 mb-4 flex justify-center">
+            <Button
+              variant="solid"
+              size="sm"
+              className="bg-white/50 text-primary hover:bg-white shadow-md border border-white/20 hover:border-white/50 transition-all w-full md:w-auto rounded-full"
+              onClick={() => {
+                setShowAccountNumber(!showAccountNumber);
+                if (!accountActivated) {
+                  setAccountActivated(true);
+                }
+              }}
+            >
+              <CreditCard className="h-4 w-4 ml-2" />
+              {accountActivated ? "رقم الحساب" : "تفعيل الحساب"}
+            </Button>
+          </div>
+
+          {/* عرض رقم الحساب */}
+          {showAccountNumber && (
+            <div className="mb-4 p-4 bg-white/10 rounded-lg border border-white/20">
+              <h3 className="text-sm font-bold text-white/90 mb-2 text-center">
+                رقم الحساب البنكي
+              </h3>
+              <p className="text-center font-mono text-white text-lg">
+                DZ59 1234 5678 9012 3456
+              </p>
+            </div>
+          )}
+
+          {/* المحافظ الإلكترونية داخل البطاقة الرئيسية */}
+          <div className="mt-4 mb-4">
+            <h3 className="text-sm font-bold text-white/90 mb-3 text-center">
+              المحافظ الإلكترونية
+            </h3>
+            <div className="overflow-x-auto pb-2 scrollbar-hide">
+              <div className="flex gap-2 justify-center">
+                {electronicWallets.map((wallet, index) => (
+                  <div
+                    key={index}
+                    className={`bg-gradient-to-br from-${wallet.color.replace("bg-", "")}/20 to-${wallet.color.replace("bg-", "")}/5 p-2 rounded-lg shadow-md border border-white/10 hover:border-white/30 transition-all text-center min-w-[90px] cursor-pointer ${wallet.linked ? "scale-105 border-white/30 shadow-lg z-10" : ""}`}
+                  >
+                    <div
+                      className={`p-1.5 bg-${wallet.color.replace("bg-", "")}/20 rounded-full mx-auto mb-1 flex items-center justify-center w-8 h-8 overflow-hidden`}
+                    >
+                      <img
+                        src={wallet.icon}
+                        alt={wallet.name}
+                        className="w-6 h-6 object-contain"
+                      />
+                    </div>
+                    <p className="text-xs font-medium mb-1 text-white/90">
+                      {wallet.name.split(" ")[1] || wallet.name.split(" ")[0]}
+                    </p>
+                    <p className="text-xs font-bold text-white/80">
+                      {wallet.linked ? "متصل" : "غير متصل"}
+                    </p>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </CardContent>
