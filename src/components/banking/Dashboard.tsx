@@ -167,7 +167,7 @@ export default function Dashboard() {
     },
     {
       name: "محفظة Paypal",
-      icon: "https://images.unsplash.com/photo-1567427017947-545c5f8d16ad?w=100&q=80",
+      icon: "https://logowik.com/content/uploads/images/paypal-new-20232814.logowik.com.webp",
       balance: 0,
       color: "bg-indigo-500",
       linked: false,
@@ -397,8 +397,9 @@ export default function Dashboard() {
                     key={index}
                     className={`bg-gradient-to-br from-${wallet.color.replace("bg-", "")}/20 to-${wallet.color.replace("bg-", "")}/5 p-2 rounded-lg shadow-md border border-white/10 hover:border-white/30 transition-all text-center min-w-[90px] cursor-pointer ${wallet.linked ? "scale-105 border-white/30 shadow-lg z-10" : ""}`}
                   >
-                    {wallet.name === "محفظة Wise" ? (
-                      <div className="mx-auto mb-1 w-10 h-10 overflow-hidden">
+                    {wallet.name === "محفظة Wise" ||
+                    wallet.name === "محفظة Paypal" ? (
+                      <div className="mx-auto w-full h-full overflow-hidden">
                         <img
                           src={wallet.icon}
                           alt={wallet.name}
@@ -406,25 +407,24 @@ export default function Dashboard() {
                         />
                       </div>
                     ) : (
-                      <div
-                        className={`p-1.5 bg-${wallet.color.replace("bg-", "")}/20 rounded-full mx-auto mb-1 flex items-center justify-center w-8 h-8 overflow-hidden`}
-                      >
-                        <img
-                          src={wallet.icon}
-                          alt={wallet.name}
-                          className="w-6 h-6 object-contain"
-                        />
-                      </div>
-                    )}
-                    {wallet.name !== "محفظة Wise" && (
-                      <p className="text-xs font-medium mb-1 text-white/90">
-                        {wallet.name.split(" ")[1] || wallet.name.split(" ")[0]}
-                      </p>
-                    )}
-                    {wallet.name !== "محفظة Wise" && (
-                      <p className="text-xs font-bold text-white/80">
-                        {wallet.linked ? "متصل" : "غير متصل"}
-                      </p>
+                      <>
+                        <div
+                          className={`p-1.5 bg-${wallet.color.replace("bg-", "")}/20 rounded-full mx-auto mb-1 flex items-center justify-center w-8 h-8 overflow-hidden`}
+                        >
+                          <img
+                            src={wallet.icon}
+                            alt={wallet.name}
+                            className="w-6 h-6 object-contain"
+                          />
+                        </div>
+                        <p className="text-xs font-medium mb-1 text-white/90">
+                          {wallet.name.split(" ")[1] ||
+                            wallet.name.split(" ")[0]}
+                        </p>
+                        <p className="text-xs font-bold text-white/80">
+                          {wallet.linked ? "متصل" : "غير متصل"}
+                        </p>
+                      </>
                     )}
                   </div>
                 ))}
