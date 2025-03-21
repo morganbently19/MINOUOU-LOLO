@@ -4,6 +4,7 @@ import Header from "./Header";
 import MobileNav from "./MobileNav";
 import MobileBottomNav from "./MobileBottomNav";
 import FloatingActionButton from "./FloatingActionButton";
+import NavigationMenu from "./NavigationMenu";
 
 export default function BankLayout() {
   return (
@@ -12,11 +13,11 @@ export default function BankLayout() {
       <div className="flex flex-col flex-1 overflow-hidden">
         <Header />
         <MobileNav />
-        <main className="flex-1 overflow-y-auto p-4 pb-20 md:pb-4 bg-gray-50/80">
+        <main className="flex-1 p-4 pb-20 md:pb-4 bg-gray-50/80 overflow-hidden">
           <Outlet />
         </main>
         <FloatingActionButton />
-        <MobileBottomNav />
+        <NavigationMenu />
       </div>
     </div>
   );

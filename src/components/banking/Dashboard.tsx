@@ -31,6 +31,7 @@ import {
   Wallet,
   Smartphone,
 } from "lucide-react";
+import NavigationMenu from "./NavigationMenu";
 import Bell from "./Bell";
 import DepositFunds from "./DepositFunds";
 import OpenNewAccount from "./OpenNewAccount";
@@ -193,7 +194,7 @@ export default function Dashboard() {
   ];
 
   return (
-    <div className="space-y-4 md:space-y-6 pb-32 px-3 md:px-6 min-h-screen bg-gradient-to-b from-primary/5 to-primary/10 flex flex-col items-center justify-center">
+    <div className="space-y-4 md:space-y-6 pb-32 px-3 md:px-6 min-h-screen bg-gradient-to-b from-primary/5 to-primary/10 flex flex-col items-center pt-4">
       {/* رأس الصفحة */}
 
       {/* بطاقة الرصيد الرئيسية */}
@@ -316,7 +317,7 @@ export default function Dashboard() {
           </div>
 
           {/* المحافظ الإلكترونية داخل البطاقة الرئيسية */}
-          <div className="mt-6 mb-2">
+          <div className="mt-6 mb-4">
             <h3 className="text-sm font-bold text-white/90 mb-3 text-center">
               المحافظ الإلكترونية
             </h3>
@@ -348,38 +349,40 @@ export default function Dashboard() {
             </div>
           </div>
 
-          <div className="flex flex-col md:flex-row justify-center gap-3">
-            <Button
-              variant="solid"
-              size="sm"
-              className="bg-white/90 text-primary hover:bg-white shadow-md border border-white/20 hover:border-white/50 transition-all w-full md:w-auto rounded-full"
-              onClick={() =>
-                (window.location.href = "/bank/deposit-instructions")
-              }
-            >
-              <DollarSign className="h-4 w-4 ml-2" />
-              إيداع رصيد
-            </Button>
-            <Button
-              variant="solid"
-              size="sm"
-              className="bg-white/20 text-white hover:bg-white/30 shadow-md border border-white/10 hover:border-white/30 transition-all w-full md:w-auto rounded-full"
-              asChild
-            >
-              <Link to="/bank/deposit-instructions">
-                <LineChart className="h-4 w-4 ml-2" />
-                تعليمات الإيداع
-              </Link>
-            </Button>
-            <Button
-              variant="solid"
-              size="sm"
-              className="bg-white/20 text-white hover:bg-white/30 shadow-md border border-white/10 hover:border-white/30 transition-all w-full md:w-auto rounded-full"
-              onClick={() => setShowExchangeRates(!showExchangeRates)}
-            >
-              <CreditCard className="h-4 w-4 ml-2" />
-              أسعار الصرف
-            </Button>
+          <div className="border-t border-white/10 pt-4 mt-2">
+            <div className="flex flex-col md:flex-row justify-center gap-3">
+              <Button
+                variant="solid"
+                size="sm"
+                className="bg-white/90 text-primary hover:bg-white shadow-md border border-white/20 hover:border-white/50 transition-all w-full md:w-auto rounded-full"
+                onClick={() =>
+                  (window.location.href = "/bank/deposit-instructions")
+                }
+              >
+                <DollarSign className="h-4 w-4 ml-2" />
+                إيداع رصيد
+              </Button>
+              <Button
+                variant="solid"
+                size="sm"
+                className="bg-white/20 text-white hover:bg-white/30 shadow-md border border-white/10 hover:border-white/30 transition-all w-full md:w-auto rounded-full"
+                asChild
+              >
+                <Link to="/bank/deposit-instructions">
+                  <LineChart className="h-4 w-4 ml-2" />
+                  تعليمات الإيداع
+                </Link>
+              </Button>
+              <Button
+                variant="solid"
+                size="sm"
+                className="bg-white/20 text-white hover:bg-white/30 shadow-md border border-white/10 hover:border-white/30 transition-all w-full md:w-auto rounded-full"
+                onClick={() => setShowExchangeRates(!showExchangeRates)}
+              >
+                <CreditCard className="h-4 w-4 ml-2" />
+                أسعار الصرف
+              </Button>
+            </div>
           </div>
         </CardContent>
       </Card>
@@ -490,40 +493,7 @@ export default function Dashboard() {
       )}
 
       {/* شريط التنقل السفلي */}
-      <div className="fixed bottom-0 left-0 right-0 bg-background border-t p-2 flex justify-around items-center md:hidden z-10">
-        <Button
-          variant="ghost"
-          size="icon"
-          className="flex flex-col items-center text-xs gap-1"
-        >
-          <Home className="h-5 w-5" />
-          <span>الرئيسية</span>
-        </Button>
-        <Button
-          variant="ghost"
-          size="icon"
-          className="flex flex-col items-center text-xs gap-1"
-        >
-          <CardIcon className="h-5 w-5" />
-          <span>الحسابات</span>
-        </Button>
-        <Button
-          variant="ghost"
-          size="icon"
-          className="flex flex-col items-center text-xs gap-1"
-        >
-          <Send className="h-5 w-5" />
-          <span>التحويلات</span>
-        </Button>
-        <Button
-          variant="ghost"
-          size="icon"
-          className="flex flex-col items-center text-xs gap-1"
-        >
-          <Users className="h-5 w-5" />
-          <span>المستفيدون</span>
-        </Button>
-      </div>
+      <NavigationMenu />
 
       {/* نافذة فتح حساب جديد */}
       <OpenNewAccount
