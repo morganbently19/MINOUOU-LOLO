@@ -152,17 +152,17 @@ export default function Dashboard() {
   // المحافظ الإلكترونية
   const electronicWallets = [
     {
-      name: "محفظة بريدي موب",
-      icon: "https://images.unsplash.com/photo-1614680376573-df3480f0c6ff?w=100&q=80",
+      name: "محفظة Binance",
+      icon: "https://cryptologos.cc/logos/binance-coin-bnb-logo.png",
       balance: 0,
-      color: "bg-green-500",
+      color: "bg-yellow-500",
       linked: true,
     },
     {
-      name: "محفظة CIB Pay",
-      icon: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=100&q=80",
+      name: "محفظة Revolut",
+      icon: "https://i0.wp.com/www.eseibusinessschool.com/wp-content/uploads/2023/05/Revolut_logo.png?resize=1024%2C1024&ssl=1",
       balance: 0,
-      color: "bg-blue-500",
+      color: "bg-purple-500",
       linked: false,
     },
     {
@@ -181,14 +181,14 @@ export default function Dashboard() {
     },
     {
       name: "محفظة Paysera",
-      icon: "https://images.unsplash.com/photo-1601597111158-2fceff292cdc?w=100&q=80",
+      icon: "https://logowik.com/content/uploads/images/paysera-new9014.logowik.com.webp",
       balance: 0,
       color: "bg-yellow-500",
       linked: false,
     },
     {
       name: "محفظة RedotPay",
-      icon: "https://images.unsplash.com/photo-1607344645866-009c320c5ab8?w=100&q=80",
+      icon: "https://www.fintechfutures.com/files/2025/03/RedotPay-fintech-news-280x280.png",
       balance: 0,
       color: "bg-red-500",
       linked: false,
@@ -398,23 +398,27 @@ export default function Dashboard() {
                     className={`bg-gradient-to-br from-${wallet.color.replace("bg-", "")}/20 to-${wallet.color.replace("bg-", "")}/5 p-2 rounded-lg shadow-md border border-white/10 hover:border-white/30 transition-all text-center min-w-[90px] cursor-pointer ${wallet.linked ? "scale-105 border-white/30 shadow-lg z-10" : ""}`}
                   >
                     {wallet.name === "محفظة Wise" ||
-                    wallet.name === "محفظة Paypal" ? (
-                      <div className="mx-auto w-full h-full overflow-hidden">
+                    wallet.name === "محفظة Paypal" ||
+                    wallet.name === "محفظة Paysera" ||
+                    wallet.name === "محفظة RedotPay" ||
+                    wallet.name === "محفظة Binance" ||
+                    wallet.name === "محفظة Revolut" ? (
+                      <div className="mx-auto w-12 h-12 overflow-hidden flex items-center justify-center bg-white/90 rounded-full p-1 shadow-inner">
                         <img
                           src={wallet.icon}
                           alt={wallet.name}
-                          className="w-full h-full object-cover"
+                          className="w-10 h-10 object-contain"
                         />
                       </div>
                     ) : (
                       <>
                         <div
-                          className={`p-1.5 bg-${wallet.color.replace("bg-", "")}/20 rounded-full mx-auto mb-1 flex items-center justify-center w-8 h-8 overflow-hidden`}
+                          className={`p-1.5 bg-${wallet.color.replace("bg-", "")}/20 rounded-full mx-auto mb-1 flex items-center justify-center w-12 h-12 overflow-hidden shadow-inner bg-white/90`}
                         >
                           <img
                             src={wallet.icon}
                             alt={wallet.name}
-                            className="w-6 h-6 object-contain"
+                            className="w-9 h-9 object-contain"
                           />
                         </div>
                         <p className="text-xs font-medium mb-1 text-white/90">
@@ -497,12 +501,12 @@ export default function Dashboard() {
                 >
                   <div className="flex items-center gap-3">
                     <div
-                      className={`p-2 ${wallet.color}/10 rounded-full flex items-center justify-center w-12 h-12 overflow-hidden border border-${wallet.color.replace("bg-", "")}/20`}
+                      className={`p-2 ${wallet.color}/10 rounded-full flex items-center justify-center w-14 h-14 overflow-hidden border border-${wallet.color.replace("bg-", "")}/20 bg-white shadow-md`}
                     >
                       <img
                         src={wallet.icon}
                         alt={wallet.name}
-                        className="w-8 h-8 object-contain"
+                        className="w-10 h-10 object-contain"
                       />
                     </div>
                     <div>
