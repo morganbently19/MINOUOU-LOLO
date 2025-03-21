@@ -196,7 +196,7 @@ export default function Dashboard() {
   ];
 
   return (
-    <div className="space-y-4 md:space-y-6 pb-32 px-3 md:px-6 min-h-screen bg-gradient-to-b from-primary/5 to-primary/10 flex flex-col items-center pt-4">
+    <div className="space-y-4 md:space-y-6 pb-32 px-3 md:px-6 min-h-screen bg-white flex flex-col items-center pt-4">
       {/* رأس الصفحة */}
 
       {/* بطاقة الرصيد الرئيسية */}
