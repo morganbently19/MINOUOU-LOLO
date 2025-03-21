@@ -153,7 +153,7 @@ export default function Dashboard() {
   const electronicWallets = [
     {
       name: "محفظة Binance",
-      icon: "https://cryptologos.cc/logos/binance-coin-bnb-logo.png",
+      icon: "https://www.logo.wine/a/logo/Binance/Binance-Logo.wine.svg",
       balance: 0,
       color: "bg-yellow-500",
       linked: true,
