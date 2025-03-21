@@ -196,11 +196,11 @@ export default function Dashboard() {
   ];
 
   return (
-    <div className="space-y-4 md:space-y-6 pb-32 px-3 md:px-6 min-h-screen bg-white flex flex-col items-center pt-4">
+    <div className="space-y-4 md:space-y-6 pb-32 px-3 md:px-6 min-h-screen bg-gradient-to-b from-primary/10 to-primary/5 flex flex-col items-center pt-4">
       {/* رأس الصفحة */}
 
       {/* بطاقة الرصيد الرئيسية */}
-      <Card className="bg-gradient-to-r from-primary to-primary/80 text-white overflow-hidden relative w-full max-w-3xl shadow-xl rounded-xl border border-primary-foreground/5 backdrop-blur-sm">
+      <Card className="bg-gradient-to-r from-primary to-primary/80 text-white overflow-hidden relative w-full max-w-3xl shadow-xl rounded-xl border border-primary-foreground/5 backdrop-blur-sm mt-4">
         <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-10 -mt-10 blur-xl"></div>
         <div className="absolute bottom-0 left-0 w-24 h-24 bg-white/10 rounded-full -ml-8 -mb-8 blur-lg"></div>
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-white/5 rounded-full blur-3xl pointer-events-none"></div>
@@ -397,7 +397,7 @@ export default function Dashboard() {
 
       {/* أسعار الصرف */}
       {showExchangeRates && (
-        <Card className="max-w-3xl mx-auto w-full shadow-lg border-primary/10 backdrop-blur-sm bg-white/90">
+        <Card className="max-w-3xl mx-auto w-full shadow-lg border-primary/10 backdrop-blur-sm bg-white">
           <CardHeader className="bg-gradient-to-r from-primary/5 to-primary/10 rounded-t-lg">
             <CardTitle className="text-xl flex items-center gap-2">
               <Globe className="h-5 w-5 text-primary" />
@@ -410,7 +410,7 @@ export default function Dashboard() {
               {exchangeRates.map((rate, index) => (
                 <div
                   key={index}
-                  className="flex justify-between items-center p-4 rounded-lg border hover:border-primary/30 transition-all hover:shadow-md bg-white"
+                  className="flex justify-between items-center p-4 rounded-lg border hover:border-primary/30 transition-all hover:shadow-md bg-white/90"
                 >
                   <div className="flex items-center gap-3">
                     <div className="p-2 bg-primary/10 rounded-full">
@@ -441,7 +441,7 @@ export default function Dashboard() {
 
       {/* المحافظ الإلكترونية */}
       {showWallets && (
-        <Card className="max-w-3xl mx-auto w-full shadow-lg border-primary/10">
+        <Card className="max-w-3xl mx-auto w-full shadow-lg border-primary/10 bg-white">
           <CardHeader className="bg-gradient-to-r from-primary/5 to-primary/10 rounded-t-lg">
             <CardTitle className="text-xl flex items-center gap-2">
               <Wallet className="h-5 w-5 text-primary" />
@@ -454,7 +454,7 @@ export default function Dashboard() {
               {electronicWallets.map((wallet, index) => (
                 <div
                   key={index}
-                  className="flex justify-between items-center p-4 rounded-lg border hover:border-primary/50 transition-all cursor-pointer hover:shadow-md bg-white"
+                  className="flex justify-between items-center p-4 rounded-lg border hover:border-primary/50 transition-all cursor-pointer hover:shadow-md bg-white/90"
                 >
                   <div className="flex items-center gap-3">
                     <div
