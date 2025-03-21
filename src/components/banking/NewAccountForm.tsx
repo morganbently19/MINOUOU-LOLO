@@ -36,7 +36,7 @@ export default function NewAccountForm({
   customerId = 1, // Default customer ID for testing
 }: NewAccountFormProps) {
   const [accountType, setAccountType] = useState("جاري");
-  const [currency, setCurrency] = useState("دينار جزائري");
+  const [currency, setCurrency] = useState("درهم اماراتي");
   const [initialDeposit, setInitialDeposit] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [acceptTerms, setAcceptTerms] = useState(false);
@@ -45,7 +45,7 @@ export default function NewAccountForm({
   // Generate a random account number
   const generateAccountNumber = () => {
     const randomPart = () => Math.floor(1000 + Math.random() * 9000);
-    return `DZ59 ${randomPart()} ${randomPart()} ${randomPart()} ${randomPart()}`;
+    return `AE59 ${randomPart()} ${randomPart()} ${randomPart()} ${randomPart()}`;
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -86,7 +86,7 @@ export default function NewAccountForm({
     if (Number(initialDeposit) < minDeposit) {
       toast({
         title: "خطأ",
-        description: `الحد الأدنى للإيداع في حساب ${accountType} هو ${minDeposit} ${currency === "دينار جزائري" ? "د.ج" : currency === "دولار أمريكي" ? "$" : "€"}`,
+        description: `الحد الأدنى للإيداع في حساب ${accountType} هو ${minDeposit} ${currency === "درهم اماراتي" ? "د.إ" : currency === "دولار أمريكي" ? "$" : "€"}`,
         variant: "destructive",
       });
       return;
@@ -162,7 +162,7 @@ export default function NewAccountForm({
 
       // Reset form
       setAccountType("جاري");
-      setCurrency("دينار جزائري");
+      setCurrency("درهم اماراتي");
       setInitialDeposit("");
       setAcceptTerms(false);
 
@@ -228,10 +228,10 @@ export default function NewAccountForm({
                 <SelectValue placeholder="اختر العملة" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="دينار جزائري">
+                <SelectItem value="درهم اماراتي">
                   <div className="flex items-center gap-2">
                     <CreditCard className="h-4 w-4" />
-                    <span>دينار جزائري (د.ج)</span>
+                    <span>درهم اماراتي (د.إ)</span>
                   </div>
                 </SelectItem>
                 <SelectItem value="دولار أمريكي">
@@ -262,8 +262,8 @@ export default function NewAccountForm({
               />
             </div>
             <p className="text-xs text-muted-foreground">
-              الحد الأدنى للإيداع: 1,000 د.ج للحساب الجاري، 5,000 د.ج لحساب
-              التوفير، 10,000 د.ج لحساب الاستثمار
+              الحد الأدنى للإيداع: 1,000 د.إ للحساب الجاري، 5,000 د.إ لحساب
+              التوفير، 10,000 د.إ لحساب الاستثمار
             </p>
           </div>
 

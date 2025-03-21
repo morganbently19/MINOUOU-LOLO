@@ -34,9 +34,9 @@ import { Badge } from "../ui/badge";
 const defaultCurrencyRates = [
   {
     id: 1,
-    code: "DZD",
-    name: "دينار جزائري",
-    symbol: "د.ج",
+    code: "AED",
+    name: "درهم اماراتي",
+    symbol: "د.إ",
     baseRate: 1,
     buyRate: 1,
     sellRate: 1,
@@ -50,9 +50,9 @@ const defaultCurrencyRates = [
     code: "USD",
     name: "دولار أمريكي",
     symbol: "$",
-    baseRate: 135.5,
-    buyRate: 134.8,
-    sellRate: 136.2,
+    baseRate: 3.67,
+    buyRate: 3.65,
+    sellRate: 3.69,
     lastUpdated: "2023-06-20T10:00:00",
     trend: "up",
     trendPercentage: "+1.2%",
@@ -63,9 +63,9 @@ const defaultCurrencyRates = [
     code: "EUR",
     name: "يورو",
     symbol: "€",
-    baseRate: 148.2,
-    buyRate: 147.5,
-    sellRate: 149.0,
+    baseRate: 4.02,
+    buyRate: 4.0,
+    sellRate: 4.04,
     lastUpdated: "2023-06-20T10:00:00",
     trend: "down",
     trendPercentage: "-0.5%",
@@ -76,9 +76,9 @@ const defaultCurrencyRates = [
     code: "GBP",
     name: "جنيه إسترليني",
     symbol: "£",
-    baseRate: 172.3,
-    buyRate: 171.5,
-    sellRate: 173.1,
+    baseRate: 4.65,
+    buyRate: 4.63,
+    sellRate: 4.67,
     lastUpdated: "2023-06-20T10:00:00",
     trend: "up",
     trendPercentage: "+0.8%",
@@ -89,9 +89,9 @@ const defaultCurrencyRates = [
     code: "CAD",
     name: "دولار كندي",
     symbol: "C$",
-    baseRate: 101.2,
-    buyRate: 100.5,
-    sellRate: 102.0,
+    baseRate: 2.75,
+    buyRate: 2.73,
+    sellRate: 2.77,
     lastUpdated: "2023-06-20T10:00:00",
     trend: "down",
     trendPercentage: "-0.3%",
@@ -211,7 +211,7 @@ export default function BankCurrencySettings() {
   // تنسيق التاريخ والوقت
   const formatDateTime = (dateTimeString) => {
     const date = new Date(dateTimeString);
-    return date.toLocaleString("ar-DZ", {
+    return date.toLocaleString("ar-AE", {
       year: "numeric",
       month: "short",
       day: "numeric",
@@ -253,7 +253,7 @@ export default function BankCurrencySettings() {
         <CardHeader>
           <CardTitle>أسعار صرف العملات</CardTitle>
           <CardDescription>
-            إدارة أسعار شراء وبيع العملات الأجنبية مقابل الدينار الجزائري
+            إدارة أسعار شراء وبيع العملات الأجنبية مقابل الدرهم الاماراتي
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -292,17 +292,17 @@ export default function BankCurrencySettings() {
                     <TableCell>
                       {currency.isBase
                         ? "-"
-                        : `${currency.buyRate.toLocaleString()} ${currency.isBase ? "" : "د.ج"}`}
+                        : `${currency.buyRate.toLocaleString()} ${currency.isBase ? "" : "د.إ"}`}
                     </TableCell>
                     <TableCell>
                       {currency.isBase
                         ? "-"
-                        : `${currency.sellRate.toLocaleString()} ${currency.isBase ? "" : "د.ج"}`}
+                        : `${currency.sellRate.toLocaleString()} ${currency.isBase ? "" : "د.إ"}`}
                     </TableCell>
                     <TableCell>
                       {currency.isBase
                         ? "-"
-                        : `${currency.baseRate.toLocaleString()} ${currency.isBase ? "" : "د.ج"}`}
+                        : `${currency.baseRate.toLocaleString()} ${currency.isBase ? "" : "د.إ"}`}
                     </TableCell>
                     <TableCell>
                       {currency.isBase ? (
@@ -361,7 +361,7 @@ export default function BankCurrencySettings() {
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="buy-rate">سعر الشراء (د.ج)</Label>
+                  <Label htmlFor="buy-rate">سعر الشراء (د.إ)</Label>
                   <div className="relative">
                     <DollarSign className="absolute right-3 top-3 h-4 w-4 text-muted-foreground" />
                     <Input
@@ -380,7 +380,7 @@ export default function BankCurrencySettings() {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="sell-rate">سعر البيع (د.ج)</Label>
+                  <Label htmlFor="sell-rate">سعر البيع (د.إ)</Label>
                   <div className="relative">
                     <DollarSign className="absolute right-3 top-3 h-4 w-4 text-muted-foreground" />
                     <Input

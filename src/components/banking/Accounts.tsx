@@ -68,7 +68,7 @@ export default function Accounts() {
               ? "حساب التوفير"
               : "حساب الاستثمار",
         number: account.account_number.replace(/\d(?=\d{4})/g, "*"),
-        balance: `${account.balance.toLocaleString()} ${account.currency === "دينار جزائري" ? "د.ج" : account.currency === "دولار أمريكي" ? "$" : "€"}`,
+        balance: `${account.balance.toLocaleString()} ${account.currency === "درهم اماراتي" ? "د.إ" : account.currency === "دولار أمريكي" ? "$" : "€"}`,
         currency: account.currency,
         type: account.type,
         status: account.status,

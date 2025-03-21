@@ -53,7 +53,7 @@ export default function Register() {
     password: "",
     initialDeposit: "1000",
     accountType: "جاري",
-    currency: "دينار جزائري",
+    currency: "درهم اماراتي",
   });
 
   const handleChange = (e) => {
@@ -102,7 +102,7 @@ export default function Register() {
 
     if (Number(formData.initialDeposit) < minDeposit) {
       setError(
-        `الحد الأدنى للإيداع في حساب ${formData.accountType} هو ${minDeposit} ${formData.currency === "دينار جزائري" ? "د.ج" : formData.currency === "دولار أمريكي" ? "$" : "€"}`,
+        `الحد الأدنى للإيداع في حساب ${formData.accountType} هو ${minDeposit} ${formData.currency === "درهم اماراتي" ? "د.إ" : formData.currency === "دولار أمريكي" ? "$" : "€"}`,
       );
       return;
     }

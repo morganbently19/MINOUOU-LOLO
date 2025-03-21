@@ -47,7 +47,7 @@ export default function Dashboard() {
     accounts: [],
   });
   const [isLoading, setIsLoading] = useState(true);
-  const [selectedCurrency, setSelectedCurrency] = useState("دينار جزائري");
+  const [selectedCurrency, setSelectedCurrency] = useState("درهم اماراتي");
   const [showExchangeRates, setShowExchangeRates] = useState(false);
   const [showAddCurrency, setShowAddCurrency] = useState(false);
   const [showWallets, setShowWallets] = useState(false);
@@ -87,16 +87,16 @@ export default function Dashboard() {
       // حساب إجمالي الرصيد من جميع الحسابات
       let totalBalance = 0;
       if (accounts && accounts.length > 0) {
-        // حساب الرصيد الإجمالي بالدينار الجزائري
+        // حساب الرصيد الإجمالي بالدرهم الاماراتي
         accounts.forEach((account) => {
-          if (account.currency === "دينار جزائري") {
+          if (account.currency === "درهم اماراتي") {
             totalBalance += account.balance;
           } else if (account.currency === "دولار أمريكي") {
-            // تحويل الدولار إلى دينار (سعر تقريبي)
-            totalBalance += account.balance * 135.5;
+            // تحويل الدولار إلى درهم (سعر تقريبي)
+            totalBalance += account.balance * 3.67;
           } else if (account.currency === "يورو") {
-            // تحويل اليورو إلى دينار (سعر تقريبي)
-            totalBalance += account.balance * 148.2;
+            // تحويل اليورو إلى درهم (سعر تقريبي)
+            totalBalance += account.balance * 4.02;
           }
         });
       }
@@ -131,19 +131,19 @@ export default function Dashboard() {
   // أسعار الصرف
   const exchangeRates = [
     {
-      from: "دينار جزائري",
+      from: "درهم اماراتي",
       to: "دولار أمريكي",
-      rate: 0.00738,
+      rate: 0.2723,
       change: -0.0002,
     },
-    { from: "دينار جزائري", to: "يورو", rate: 0.00675, change: 0.0001 },
+    { from: "درهم اماراتي", to: "يورو", rate: 0.2488, change: 0.0001 },
     { from: "دولار أمريكي", to: "يورو", rate: 0.91, change: 0.002 },
     { from: "دولار أمريكي", to: "جنيه استرليني", rate: 0.78, change: -0.001 },
   ];
 
   // الحسابات المتاحة
   const availableAccounts = [
-    { currency: "دينار جزائري", icon: "🇩🇿", code: "DZD" },
+    { currency: "درهم اماراتي", icon: "🇦🇪", code: "AED" },
     { currency: "دولار أمريكي", icon: "🇺🇸", code: "USD" },
     { currency: "يورو", icon: "🇪🇺", code: "EUR" },
     { currency: "جنيه استرليني", icon: "🇬🇧", code: "GBP" },
@@ -218,7 +218,7 @@ export default function Dashboard() {
           <div className="flex flex-col md:flex-row justify-between items-center gap-4 mb-6">
             <div className="w-full md:w-1/2 bg-white/10 p-4 rounded-lg mb-2 text-center md:text-right">
               <p className="text-3xl md:text-4xl font-bold tracking-tight">
-                {formatBalance(customer.balance)} د.ج
+                {formatBalance(customer.balance)} د.إ
               </p>
             </div>
 
@@ -244,7 +244,7 @@ export default function Dashboard() {
                     <p
                       className={`${selectedCurrency === "دولار أمريكي" ? "text-base md:text-lg" : "text-sm md:text-base"} font-bold`}
                     >
-                      $ {formatBalance((customer.balance / 135.5).toFixed(2))}
+                      $ {formatBalance((customer.balance / 3.67).toFixed(2))}
                     </p>
                   </div>
                   <div
@@ -260,7 +260,7 @@ export default function Dashboard() {
                     <p
                       className={`${selectedCurrency === "يورو" ? "text-base md:text-lg" : "text-sm md:text-base"} font-bold`}
                     >
-                      € {formatBalance((customer.balance / 148.2).toFixed(2))}
+                      € {formatBalance((customer.balance / 4.02).toFixed(2))}
                     </p>
                   </div>
                   <div
@@ -276,7 +276,7 @@ export default function Dashboard() {
                     <p
                       className={`${selectedCurrency === "جنيه استرليني" ? "text-base md:text-lg" : "text-sm md:text-base"} font-bold`}
                     >
-                      £ {formatBalance((customer.balance / 170.5).toFixed(2))}
+                      £ {formatBalance((customer.balance / 4.65).toFixed(2))}
                     </p>
                   </div>
                   <div
@@ -380,7 +380,7 @@ export default function Dashboard() {
                 رقم الحساب البنكي
               </h3>
               <p className="text-center font-mono text-white text-lg">
-                DZ59 1234 5678 9012 3456
+                AE59 1234 5678 9012 3456
               </p>
             </div>
           )}

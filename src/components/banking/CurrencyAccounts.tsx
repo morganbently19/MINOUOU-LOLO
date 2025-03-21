@@ -65,7 +65,7 @@ export default function CurrencyAccounts() {
         const currencySymbol = account.currency === "دولار أمريكي" ? "$" : "€";
         const currencyRate = ratesData.find(
           (rate) => rate.code === currencyCode,
-        ) || { base_rate: account.currency === "دولار أمريكي" ? 135.5 : 148.2 };
+        ) || { base_rate: account.currency === "دولار أمريكي" ? 3.67 : 4.02 };
 
         return {
           id: account.id,
@@ -75,7 +75,7 @@ export default function CurrencyAccounts() {
           currency: account.currency,
           type: account.type,
           status: account.status,
-          exchangeRate: `1 ${currencySymbol} = ${currencyRate.base_rate.toFixed(1)} د.ج`,
+          exchangeRate: `1 ${currencySymbol} = ${currencyRate.base_rate.toFixed(1)} د.إ`,
           trend: Math.random() > 0.5 ? "up" : "down", // عشوائي للعرض
           trendPercentage: `${Math.random() > 0.5 ? "+" : "-"}${(Math.random() * 2).toFixed(1)}%`, // عشوائي للعرض
           dzEquivalent: account.balance * currencyRate.base_rate,
@@ -308,7 +308,7 @@ export default function CurrencyAccounts() {
                             {account.balance}
                           </p>
                           <p className="text-sm text-muted-foreground">
-                            ما يعادل {account.dzEquivalent.toLocaleString()} د.ج
+                            ما يعادل {account.dzEquivalent.toLocaleString()} د.إ
                           </p>
                         </div>
                       </div>
@@ -432,7 +432,7 @@ export default function CurrencyAccounts() {
                             {account.balance}
                           </p>
                           <p className="text-sm text-muted-foreground">
-                            ما يعادل {account.dzEquivalent.toLocaleString()} د.ج
+                            ما يعادل {account.dzEquivalent.toLocaleString()} د.إ
                           </p>
                         </div>
                       </div>

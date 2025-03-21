@@ -23,30 +23,30 @@ import { Label } from "../ui/label";
 // بيانات حسابات البنك للإيداع
 const bankAccounts = [
   {
-    currency: "dzd",
-    name: "الحساب الرئيسي - دينار جزائري",
-    number: "DZ59 0034 1234 5678 9012 3456",
-    iban: "DZ59 0034 1234 5678 9012 3456 789",
-    swift: "DZBAALGX",
+    currency: "aed",
+    name: "الحساب الرئيسي - درهم اماراتي",
+    number: "AE59 0034 1234 5678 9012 3456",
+    iban: "AE59 0034 1234 5678 9012 3456 789",
+    swift: "AEBAAEAX",
   },
   {
     currency: "usd",
     name: "حساب الدولار الأمريكي",
-    number: "DZ59 0034 1234 5678 9012 3457",
-    iban: "DZ59 0034 1234 5678 9012 3457 789",
-    swift: "DZBAALGX",
+    number: "AE59 0034 1234 5678 9012 3457",
+    iban: "AE59 0034 1234 5678 9012 3457 789",
+    swift: "AEBAAEAX",
   },
   {
     currency: "eur",
     name: "حساب اليورو",
-    number: "DZ59 0034 1234 5678 9012 3458",
-    iban: "DZ59 0034 1234 5678 9012 3458 789",
-    swift: "DZBAALGX",
+    number: "AE59 0034 1234 5678 9012 3458",
+    iban: "AE59 0034 1234 5678 9012 3458 789",
+    swift: "AEBAAEAX",
   },
 ];
 
 export default function CustomerDepositInstructions() {
-  const [selectedCurrency, setSelectedCurrency] = useState("dzd");
+  const [selectedCurrency, setSelectedCurrency] = useState("aed");
   const [copiedField, setCopiedField] = useState("");
 
   const handleCopyToClipboard = (text, field) => {
@@ -94,14 +94,14 @@ export default function CustomerDepositInstructions() {
           </div>
 
           <Tabs
-            defaultValue="dzd"
+            defaultValue="aed"
             value={selectedCurrency}
             onValueChange={setSelectedCurrency}
           >
             <TabsList className="grid w-full grid-cols-3">
-              <TabsTrigger value="dzd">
+              <TabsTrigger value="aed">
                 <CreditCard className="ml-2 h-4 w-4" />
-                الدينار الجزائري
+                الدرهم الاماراتي
               </TabsTrigger>
               <TabsTrigger value="usd">
                 <DollarSign className="ml-2 h-4 w-4" />
@@ -113,11 +113,11 @@ export default function CustomerDepositInstructions() {
               </TabsTrigger>
             </TabsList>
 
-            <TabsContent value="dzd" className="space-y-4 mt-4">
+            <TabsContent value="aed" className="space-y-4 mt-4">
               <div className="space-y-4">
                 <div className="bg-muted/30 p-4 rounded-md">
                   <h3 className="font-medium mb-2">
-                    معلومات الحساب بالدينار الجزائري
+                    معلومات الحساب بالدرهم الاماراتي
                   </h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-2">
@@ -138,11 +138,11 @@ export default function CustomerDepositInstructions() {
                           onClick={() =>
                             handleCopyToClipboard(
                               currentAccount.number,
-                              "dzd-number",
+                              "aed-number",
                             )
                           }
                         >
-                          {copiedField === "dzd-number" ? (
+                          {copiedField === "aed-number" ? (
                             <Check className="h-4 w-4 text-success" />
                           ) : (
                             <Copy className="h-4 w-4" />
@@ -162,11 +162,11 @@ export default function CustomerDepositInstructions() {
                           onClick={() =>
                             handleCopyToClipboard(
                               currentAccount.iban,
-                              "dzd-iban",
+                              "aed-iban",
                             )
                           }
                         >
-                          {copiedField === "dzd-iban" ? (
+                          {copiedField === "aed-iban" ? (
                             <Check className="h-4 w-4 text-success" />
                           ) : (
                             <Copy className="h-4 w-4" />
@@ -186,11 +186,11 @@ export default function CustomerDepositInstructions() {
                           onClick={() =>
                             handleCopyToClipboard(
                               currentAccount.swift,
-                              "dzd-swift",
+                              "aed-swift",
                             )
                           }
                         >
-                          {copiedField === "dzd-swift" ? (
+                          {copiedField === "aed-swift" ? (
                             <Check className="h-4 w-4 text-success" />
                           ) : (
                             <Copy className="h-4 w-4" />
@@ -203,7 +203,7 @@ export default function CustomerDepositInstructions() {
 
                 <div className="space-y-2">
                   <h3 className="font-medium">
-                    خطوات الإيداع بالدينار الجزائري
+                    خطوات الإيداع بالدرهم الاماراتي
                   </h3>
                   <ol className="list-decimal list-inside space-y-2 text-muted-foreground">
                     <li>

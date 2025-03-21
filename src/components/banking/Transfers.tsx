@@ -32,15 +32,15 @@ export default function Transfers() {
   const [recipient, setRecipient] = useState("");
   const [fromAccount, setFromAccount] = useState("");
   const [exchangeAmount, setExchangeAmount] = useState("");
-  const [fromCurrency, setFromCurrency] = useState("dzd");
+  const [fromCurrency, setFromCurrency] = useState("aed");
   const [toCurrency, setToCurrency] = useState("usd");
 
   // أسعار الصرف التقريبية
   const exchangeRates = {
-    dzd_usd: 0.0074, // 1 دينار = 0.0074 دولار
-    dzd_eur: 0.0067, // 1 دينار = 0.0067 يورو
-    usd_dzd: 135.5, // 1 دولار = 135.5 دينار
-    eur_dzd: 148.2, // 1 يورو = 148.2 دينار
+    aed_usd: 0.2723, // 1 درهم = 0.2723 دولار
+    aed_eur: 0.2488, // 1 درهم = 0.2488 يورو
+    usd_aed: 3.67, // 1 دولار = 3.67 درهم
+    eur_aed: 4.02, // 1 يورو = 4.02 درهم
     usd_eur: 0.91, // 1 دولار = 0.91 يورو
     eur_usd: 1.1, // 1 يورو = 1.10 دولار
   };
@@ -122,7 +122,7 @@ export default function Transfers() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="amount">المبلغ (د.ج)</Label>
+                <Label htmlFor="amount">المبلغ (د.إ)</Label>
                 <Input
                   id="amount"
                   type="number"
@@ -236,7 +236,7 @@ export default function Transfers() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="amount-internal">المبلغ (د.ج)</Label>
+                <Label htmlFor="amount-internal">المبلغ (د.إ)</Label>
                 <Input
                   id="amount-internal"
                   type="number"
@@ -271,7 +271,7 @@ export default function Transfers() {
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="current">
-                      الحساب الجاري - دينار (**** 4832)
+                      الحساب الجاري - درهم (**** 4832)
                     </SelectItem>
                     <SelectItem value="dollar">
                       حساب الدولار (**** 5421)
@@ -291,7 +291,7 @@ export default function Transfers() {
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="current">
-                      الحساب الجاري - دينار (**** 4832)
+                      الحساب الجاري - درهم (**** 4832)
                     </SelectItem>
                     <SelectItem value="dollar">
                       حساب الدولار (**** 5421)
@@ -315,9 +315,9 @@ export default function Transfers() {
                         <SelectValue placeholder="من" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="dzd">
+                        <SelectItem value="aed">
                           <div className="flex items-center">
-                            دينار جزائري (د.ج)
+                            درهم اماراتي (د.إ)
                           </div>
                         </SelectItem>
                         <SelectItem value="usd">
@@ -341,9 +341,9 @@ export default function Transfers() {
                         <SelectValue placeholder="إلى" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="dzd">
+                        <SelectItem value="aed">
                           <div className="flex items-center">
-                            دينار جزائري (د.ج)
+                            درهم اماراتي (د.إ)
                           </div>
                         </SelectItem>
                         <SelectItem value="usd">
@@ -370,8 +370,8 @@ export default function Transfers() {
                   <div className="space-y-2">
                     <div className="flex items-center justify-between">
                       <span className="text-sm text-muted-foreground">
-                        {fromCurrency === "dzd"
-                          ? "دينار جزائري"
+                        {fromCurrency === "aed"
+                          ? "درهم اماراتي"
                           : fromCurrency === "usd"
                             ? "دولار أمريكي"
                             : "يورو"}
@@ -402,8 +402,8 @@ export default function Transfers() {
                     </p>
                     <p className="text-xl font-bold">
                       {calculateExchange()}{" "}
-                      {toCurrency === "dzd"
-                        ? "د.ج"
+                      {toCurrency === "aed"
+                        ? "د.إ"
                         : toCurrency === "usd"
                           ? "$"
                           : "€"}

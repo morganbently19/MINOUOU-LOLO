@@ -135,14 +135,14 @@ export default function AdminDashboard() {
           </CardHeader>
           <CardContent>
             <div className="flex items-center justify-between">
-              <div className="text-2xl font-bold">0 د.ج</div>
+              <div className="text-2xl font-bold">0 د.إ</div>
               <div className="text-xs text-muted-foreground flex items-center">
                 <TrendingUp className="h-3 w-3 mr-1" />
                 0%
               </div>
             </div>
             <div className="text-xs text-muted-foreground mt-1">
-              0 د.ج زيادة عن الشهر الماضي
+              0 د.إ زيادة عن الشهر الماضي
             </div>
           </CardContent>
         </Card>
