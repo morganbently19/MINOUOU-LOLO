@@ -34,7 +34,7 @@ export default function NavigationMenu() {
   return (
     <div className="fixed bottom-0 left-0 right-0 bg-white border-t shadow-lg z-50">
       <div className="flex justify-around items-center py-2 px-1">
-        {navItems.slice(0, 5).map((item) => (
+        {navItems.slice(0, 6).map((item) => (
           <Link
             key={item.href}
             to={item.href}

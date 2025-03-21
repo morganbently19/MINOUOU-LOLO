@@ -291,30 +291,6 @@ export default function Dashboard() {
                   </div>
                 </div>
               </div>
-              <button
-                className="absolute top-1/2 right-0 transform -translate-y-1/2 bg-white/30 hover:bg-white/50 rounded-full p-1 z-10 text-white shadow-md border border-white/20"
-                onClick={() => {
-                  const container = document.getElementById(
-                    "currency-scroll-container",
-                  );
-                  if (container)
-                    container.scrollBy({ left: 100, behavior: "smooth" });
-                }}
-              >
-                <ArrowUpRight className="h-4 w-4 rotate-90" />
-              </button>
-              <button
-                className="absolute top-1/2 left-0 transform -translate-y-1/2 bg-white/30 hover:bg-white/50 rounded-full p-1 z-10 text-white shadow-md border border-white/20"
-                onClick={() => {
-                  const container = document.getElementById(
-                    "currency-scroll-container",
-                  );
-                  if (container)
-                    container.scrollBy({ left: -100, behavior: "smooth" });
-                }}
-              >
-                <ArrowUpRight className="h-4 w-4 -rotate-90" />
-              </button>
             </div>
           </div>
 
@@ -392,44 +368,25 @@ export default function Dashboard() {
             </h3>
             <div className="overflow-x-auto pb-2 scrollbar-hide">
               <div className="flex gap-2 justify-center">
-                {electronicWallets.map((wallet, index) => (
+                {electronicWallets.slice(0, 6).map((wallet, index) => (
                   <div
                     key={index}
-                    className={`bg-gradient-to-br from-${wallet.color.replace("bg-", "")}/20 to-${wallet.color.replace("bg-", "")}/5 p-2 rounded-lg shadow-md border border-white/10 hover:border-white/30 transition-all text-center min-w-[90px] cursor-pointer ${wallet.linked ? "scale-105 border-white/30 shadow-lg z-10" : ""}`}
+                    className="bg-white/10 p-2 rounded-lg shadow-md border border-white/10 hover:border-white/30 transition-all text-center min-w-[90px] cursor-pointer"
                   >
-                    {wallet.name === "محفظة Wise" ||
-                    wallet.name === "محفظة Paypal" ||
-                    wallet.name === "محفظة Paysera" ||
-                    wallet.name === "محفظة RedotPay" ||
-                    wallet.name === "محفظة Binance" ||
-                    wallet.name === "محفظة Revolut" ? (
-                      <div className="mx-auto w-12 h-12 overflow-hidden flex items-center justify-center bg-white/90 rounded-full p-1 shadow-inner">
-                        <img
-                          src={wallet.icon}
-                          alt={wallet.name}
-                          className="w-10 h-10 object-contain"
-                        />
-                      </div>
-                    ) : (
-                      <>
-                        <div
-                          className={`p-1.5 bg-${wallet.color.replace("bg-", "")}/20 rounded-full mx-auto mb-1 flex items-center justify-center w-12 h-12 overflow-hidden shadow-inner bg-white/90`}
-                        >
-                          <img
-                            src={wallet.icon}
-                            alt={wallet.name}
-                            className="w-9 h-9 object-contain"
-                          />
-                        </div>
-                        <p className="text-xs font-medium mb-1 text-white/90">
-                          {wallet.name.split(" ")[1] ||
-                            wallet.name.split(" ")[0]}
-                        </p>
-                        <p className="text-xs font-bold text-white/80">
-                          {wallet.linked ? "متصل" : "غير متصل"}
-                        </p>
-                      </>
-                    )}
+                    <div className="mx-auto w-12 h-12 overflow-hidden flex items-center justify-center bg-white/90 rounded-full p-1 shadow-inner">
+                      <img
+                        src={wallet.icon}
+                        alt={wallet.name}
+                        className="w-10 h-10 object-contain"
+                        loading="lazy"
+                      />
+                    </div>
+                    <p className="text-xs font-medium mt-2 mb-1 text-white/90">
+                      {wallet.name.split(" ")[1] || wallet.name.split(" ")[0]}
+                    </p>
+                    <p className="text-xs font-bold text-white/80">
+                      {wallet.linked ? "متصل" : "غير متصل"}
+                    </p>
                   </div>
                 ))}
               </div>
